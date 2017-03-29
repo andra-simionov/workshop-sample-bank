@@ -35,8 +35,8 @@ class LoginModel extends CI_Model
      */
     public function getUserInfo(array $data)
     {
-        $username = $this->db->escape($data['username']);
-        $password = $this->db->escape($data['password']);
+        $username = $data['username'];
+        $password = $data['password'];
 
         $result = $this->db->select('*')
             ->from('users')
@@ -45,5 +45,16 @@ class LoginModel extends CI_Model
             ->result_array();
 
         return $result;
+    }
+
+    public function getUserIdByUserName($username)
+    {
+         $result = $this->db->select('IdUser')
+             ->from('users')
+             ->where('Username', $username)
+             ->get()
+             ->row_array();
+
+         return $result['IdUser'];
     }
 }
