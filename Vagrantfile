@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.provider :virtualbox do |vb|
         # changes the VM's name
-        vb.customize ["modifyvm", :id, "--name", "workshop-payu"]
+        vb.customize ["modifyvm", :id, "--name", "workshop-sample-bank"]
 
         # cpus option specifies the maximum nr of CPUs that the virtual machine can have
         vb.customize ["modifyvm", :id, "--cpus", "2"]
