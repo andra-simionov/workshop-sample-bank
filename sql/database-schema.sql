@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS `credit_cards` (
 	`CardNumber` INT(19) NOT NULL,
 	`Cvv` INT(4) NOT NULL,
 	`Sold` INT(11) NOT NULL,
-	`ExpirationDate` DATETIME NOT NULL DEFAULT ''
+	`ExpirationDate` VARCHAR(7) NOT NULL,
+	PRIMARY KEY (`IdCreditCard`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
