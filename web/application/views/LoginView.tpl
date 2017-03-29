@@ -59,12 +59,12 @@
 
                         {form_open('login')}
                         <div class="form-group">
-                            <label class="sr-only" for="form-username">Name</label>
-                            <input type="text" name="username" id="username" placeholder="Username..." class="form-username form-control" id="form-username">
+                            <label class="sr-only" for="username">Name</label>
+                            <input type="text" name="username" id="username" placeholder="Username..." class="form-control">
                         </div>
                         <div class="form-group">
-                            <label class="sr-only" for="form-password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="Password..." class="form-password form-control" id="form-password">
+                            <label class="sr-only" for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="Password..." class="form-control">
                         </div>
 
                         {validation_errors()}
