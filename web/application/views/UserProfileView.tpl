@@ -50,7 +50,7 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand navbar-right" href="#">Logout</a>
+                    <a class="navbar-brand navbar-right" href="{site_url('Logout')}">Logout</a>
                 </div>
             </div>
         </nav>
@@ -64,7 +64,7 @@
                             </div>
                             <div class="author">
                                 <img class="avatar border-white" src="../../bankAssets/img/faces/user.png" alt="..."/>
-                                <h4 class="title">Chet Faker<br/>
+                                <h4 class="title">{$username}<br/>
                                 </h4>
                             </div>
                             <br>
@@ -72,8 +72,8 @@
                             <div class="text-center">
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1">
-                                        <h5>12<br/>
-                                            <small>Files</small>
+                                        <h5>{$noOfCreditCards}<br/>
+                                            <small>Cards</small>
                                         </h5>
                                     </div>
                                 </div>
@@ -109,32 +109,49 @@
                                 <h4 class="title">Credit Cards</h4>
                             </div>
                             <div class="content">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <div class="form-group">
-                                                <label>Card number</label>
-                                                <input type="text" class="form-control border-input"
-                                                       placeholder="Home Address" value="Melbourne, Australia">
-                                            </div>
+                                {form_open(base_url('UserProfile/addCreditCard'))}
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <label>Card number</label>
+                                            <input type="text" class="form-control border-input" placeholder="Card No"
+                                                   id="cardno" name="cardno">
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Available Amount</label>
-                                                <input type="text" class="form-control border-input" placeholder="City"
-                                                       value="Melbourne">
-                                            </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Expiration Month</label>
+                                            <input type="text" class="form-control border-input"
+                                                   placeholder="Expiration Date" id="expirationDate" name="expirationDate">
                                         </div>
                                     </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile
-                                        </button>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Cvv</label>
+                                            <input type="text" class="form-control border-input"
+                                                   placeholder="Cvv" id="cvv" name="cvv">
+                                        </div>
                                     </div>
-                                    <div class="clearfix"></div>
-                                </form>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Sold</label>
+                                            <input type="text" class="form-control border-input"
+                                                   placeholder="Amount" id="sold" name="sold">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile
+                                    </button>
+                                </div>
+                                <div class="clearfix"></div>
+                                {form_close()}
                             </div>
                         </div>
                     </div>
