@@ -13,3 +13,4 @@ class RegisterPage extends CI_Controller
         $smartyci->display('RegisterView.tpl');
     }
 }
+

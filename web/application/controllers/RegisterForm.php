@@ -12,11 +12,17 @@ class RegisterForm extends CI_Controller
 
         $smartyci = new Smartyci();
 
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
-        $email = $this->input->post('email');
-
         $config =  [
+            [
+                'field'   => 'firstname',
+                'label'   => 'Firstname',
+                'rules'   => 'trim|required'
+            ],
+            [
+                'field'   => 'lastname',
+                'label'   => 'Lastname',
+                'rules'   => 'trim|required'
+            ],
             [
                 'field'   => 'username',
                 'label'   => 'Username',
@@ -39,7 +45,16 @@ class RegisterForm extends CI_Controller
         $this->form_validation->set_rules($config);
 
         if ($this->form_validation->run() == TRUE) {
-            $this->RegisterModel->registerUser($username, $password, $email);
+
+            $userData = [
+                'FirstName' => $this->input->post('firstname'),
+                'LastName' => $this->input->post('lastname'),
+                'Username' => $this->input->post('username'),
+                'Email' => $this->input->post('email'),
+                'Password' => $this->input->post('password'),
+            ];
+
+            $this->RegisterModel->registerUser($userData);
         }
 
         $smartyci->display('RegisterView.tpl');

@@ -8,19 +8,10 @@ class RegisterModel extends CI_Model
     }
 
     /**
-     * @param $username
-     * @param $password
-     * @param $email
-     * @return bool
+     * @param array $userData
      */
-    public function registerUser($username, $password, $email)
+    public function registerUser(array $userData)
     {
-        $userData = [
-            'Username' => $username,
-            'Password' => $password,
-            'Email' => $email,
-            ];
-
         $this->db->insert('users', $userData);
     }
 }
