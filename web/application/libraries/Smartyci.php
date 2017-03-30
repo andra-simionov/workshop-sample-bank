@@ -14,6 +14,9 @@ class Smartyci extends Smarty
         $config =& get_config();
 
         $this->caching = 1;
+        $this->caching = 0;
+        $this->cache_lifetime = 1;
+
         $this->setTemplateDir( $config['application_dir'] . 'views' );
         $this->setCompileDir( $config['application_dir'] . 'third_party/smarty-3.1.30/templates_c' );
         $this->setConfigDir( $config['application_dir'] . 'third_party/smarty-3.1.30/configs' );
