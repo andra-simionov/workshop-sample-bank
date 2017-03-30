@@ -21,10 +21,22 @@ CREATE TABLE IF NOT EXISTS `credit_cards` (
 	`IdUser` INT(11) NOT NULL,
 	`CardNumber` INT(19) NOT NULL,
 	`Cvv` INT(4) NOT NULL,
-	`Sold` INT(11) NOT NULL,
-	`ExpirationDate` VARCHAR(7) NOT NULL,
+	`ExpirationMonth` INT(2) NOT NULL,
+	`ExpirationYear` INT(2) NOT NULL,
+	`AddDate` DATETIME,
+	`ChangeDate` DATETIME,
 	PRIMARY KEY (`IdCreditCard`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 AUTO_INCREMENT=0;
+
+CREATE TABLE IF NOT EXISTS `card_amounts` (
+	`IdCardAmounts` INT(11) NOT NULL AUTO_INCREMENT,
+	`IdCreditCard` INT(11) NOT NULL,
+	`Sold` INT(11) NOT NULL,
+	PRIMARY KEY (`IdCardAmounts`)
+)
+	COLLATE='utf8_general_ci'
+	ENGINE=InnoDB
+	AUTO_INCREMENT=0;
