@@ -135,5 +135,5 @@ $autoload['language'] = array();
 $autoload['model'] = [
     'LoginModel',
     'RegisterModel',
-    'UserProfileModel'
+    'UserProfileModel',
     ];
