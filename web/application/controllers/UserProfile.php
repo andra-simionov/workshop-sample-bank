@@ -1,6 +1,6 @@
 <?php
 
-class UserProfile extends CI_Controller
+class UserProfile extends MY_Controller
 {
     private $username;
     private $idUser;
@@ -8,7 +8,6 @@ class UserProfile extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('session');
 
         $this->setUsername($this->session->all_userdata()['Username']);
         $this->setIdUser($this->LoginModel->getUserIdByUserName($this->username));

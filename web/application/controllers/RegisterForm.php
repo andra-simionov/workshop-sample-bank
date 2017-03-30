@@ -1,6 +1,6 @@
 <?php
 
-class RegisterForm extends CI_Controller
+class RegisterForm extends MYController
 {
     function index()
     {
@@ -57,6 +57,6 @@ class RegisterForm extends CI_Controller
             $this->RegisterModel->registerUser($userData);
         }
 
-        $smartyci->display('RegisterView.tpl');
+        redirect('Login');
     }
 }
