@@ -7,20 +7,73 @@ class UserProfileModel extends CI_Model
         parent::__construct();
     }
 
-    public function getUserCardNo($username)
+    public function addCardData(array $data, $idUser)
+    {
+        if ($this->getUserCardNo($idUser) == 0) {
+            $data['AddDate'] = date('Y-m-d H:i:s');
+            $this->db->insert('credit_cards', $data);
+        }
+
+        $idCreditCard = $this->getIdCardByIdUser($idUser);
+
+        $data['ChangeDate'] = date('Y-m-d H:i:s');
+        $this->db->where('IdCreditCard', $idCreditCard)
+            ->update('credit_cards', $data);
+    }
+
+    public function getUserCardNo($idUser)
     {
         $result = $this->db->select('*')
             ->from('credit_cards')
             ->join('users', 'users.IdUser = credit_cards.IdUser', 'inner')
-            ->where('users.Username', $username)
+            ->where('users.IdUser', $idUser)
             ->get()
             ->result_array();
 
         return count($result);
     }
 
-    public function addCardData($data)
+    public function getUserCards($idUser)
     {
-        $this->db->insert('credit_cards', $data);
+        $result = $this->db->select(['CardNumber', 'Cvv', 'ExpirationMonth', 'ExpirationYear'])
+            ->from('credit_cards')
+            ->where('IdUser', $idUser)
+            ->get()
+            ->result_array();
+
+        $cardData = [];
+        foreach ($result as $cardValue) {
+            $cardData = $cardValue;
+        }
+        return $cardData;
+    }
+
+    public function getUserSold($idUser)
+    {
+        $result = $this->db->select(['Sold'])
+            ->from('card_amounts')
+            ->join('credit_cards', 'card_amounts.IdCreditCard=credit_cards.IdCreditCard')
+            ->join('users', 'users.IdUser=credit_cards.IdUser')
+            ->where('users.IdUser', $idUser)
+            ->get()
+            ->row_array();
+
+        if (empty($result)) {
+            return 0;
+        }
+
+        return $result['Sold'];
+    }
+
+    private function getIdCardByIdUser($idUser)
+    {
+        $idCard = $this->db->select('IdCreditCard')
+            ->from('credit_cards')
+            ->join('users', 'users.IdUser=credit_cards.IdUser')
+            ->where('users.IdUser', $idUser)
+            ->get()
+            ->row_array();
+
+        return $idCard['IdCreditCard'];
     }
 }

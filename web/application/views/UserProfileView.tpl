@@ -73,7 +73,7 @@
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1">
                                         <h5>{$noOfCreditCards}<br/>
-                                            <small>Cards</small>
+                                            <small>Card</small>
                                         </h5>
                                     </div>
                                 </div>
@@ -89,8 +89,8 @@
                                     </div>
                                     <div class="col-xs-7">
                                         <div class="numbers">
-                                            <p>Revenue</p>
-                                            $1,345
+                                            <p>Total Sold</p>
+                                            {$totalSold}
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                     <div class="col-lg-8 col-md-7">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Credit Cards</h4>
+                                <h4 class="title">Credit Card</h4>
                             </div>
                             <div class="content">
                                 {form_open(base_url('UserProfile/addCreditCard'))}
@@ -114,8 +114,7 @@
                                     <div class="col-md-7">
                                         <div class="form-group">
                                             <label>Card number</label>
-                                            <input type="text" class="form-control border-input" placeholder="Card No"
-                                                   id="cardno" name="cardno">
+                                            <input type="text" class="form-control border-input" placeholder="Card No" id="cardno" name="cardno" value="{if $noOfCreditCards != 0}{$cardData['CardNumber']}{/if}">
                                         </div>
                                     </div>
                                 </div>
@@ -123,8 +122,17 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Expiration Month</label>
-                                            <input type="text" class="form-control border-input"
-                                                   placeholder="Expiration Date" id="expirationDate" name="expirationDate">
+                                            <input type="text" class="form-control border-input" placeholder="Expiration Month" id="expirationMonth"
+                                                   name="expirationMonth" value="{if $noOfCreditCards != 0}{$cardData['ExpirationMonth']}{/if}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Expiration Year</label>
+                                            <input type="text" class="form-control border-input" placeholder="Expiration Year" id="expirationYear"
+                                                   name="expirationYear" value="{if $noOfCreditCards != 0}{$cardData['ExpirationYear']}{/if}">
                                         </div>
                                     </div>
                                 </div>
@@ -132,22 +140,12 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Cvv</label>
-                                            <input type="text" class="form-control border-input"
-                                                   placeholder="Cvv" id="cvv" name="cvv">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Sold</label>
-                                            <input type="text" class="form-control border-input"
-                                                   placeholder="Amount" id="sold" name="sold">
+                                            <input type="text" class="form-control border-input" placeholder="Cvv" id="cvv" name="cvv" value="{if $noOfCreditCards != 0}{$cardData['Cvv']}{/if}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile
+                                    <button type="submit" class="btn btn-info btn-fill btn-wd">{if $noOfCreditCards == 0}Add credit card{else}Update card data{/if}
                                     </button>
                                 </div>
                                 <div class="clearfix"></div>
@@ -155,8 +153,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>

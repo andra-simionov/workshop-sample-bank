@@ -3,12 +3,15 @@
 class UserProfile extends CI_Controller
 {
     private $username;
+    private $idUser;
 
     public function __construct()
     {
         parent::__construct();
         $this->load->library('session');
+
         $this->setUsername($this->session->all_userdata()['Username']);
+        $this->setIdUser($this->LoginModel->getUserIdByUserName($this->username));
     }
 
     function index()
@@ -19,7 +22,11 @@ class UserProfile extends CI_Controller
         $smartyci = new Smartyci();
 
         $smartyci->assign('username', $this->username);
-        $smartyci->assign('noOfCreditCards', $this->UserProfileModel->getUserCardNo($this->username));
+        $smartyci->assign('noOfCreditCards', $this->UserProfileModel->getUserCardNo($this->idUser));
+        $smartyci->assign('totalSold', $this->UserProfileModel->getUserSold($this->idUser));
+
+        $cardData = $this->UserProfileModel->getUserCards($this->idUser);
+        $smartyci->assign('cardData', $cardData);
 
         $smartyci->display('UserProfileView.tpl');
     }
@@ -27,34 +34,33 @@ class UserProfile extends CI_Controller
     public function addCreditCard()
     {
         $this->load->helper(['form', 'url']);
-        $this->load->library('Smartyci');
-
-        $smartyci = new Smartyci();
 
         $cardData = [
-            'IdUser' => $this->LoginModel->getUserIdByUserName($this->username),
+            'IdUser' => $this->idUser,
             'CardNumber' => $this->input->post('cardno'),
-            'ExpirationDate' => $this->input->post('expirationDate'),
+            'ExpirationMonth' => $this->input->post('expirationMonth'),
+            'ExpirationYear' => $this->input->post('expirationYear'),
             'Cvv' => $this->input->post('cvv'),
-            'Sold' => $this->input->post('sold'),
         ];
-        $this->UserProfileModel->addCardData($cardData, $this->username);
-        $smartyci->display('UserProfileView.tpl');
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getUsername()
-    {
-        return $this->username;
+        $this->UserProfileModel->addCardData($cardData, $this->idUser);
+
+        redirect('UserProfile');
     }
 
     /**
      * @param mixed $username
      */
-    public function setUsername($username)
+    private function setUsername($username)
     {
         $this->username = $username;
+    }
+
+    /**
+     * @param $idUser
+     */
+    private function setIdUser($idUser)
+    {
+        $this->idUser = $idUser;
     }
 }
