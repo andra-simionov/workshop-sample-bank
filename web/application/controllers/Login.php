@@ -1,6 +1,6 @@
 <?php
 
-class Login extends MY_Controller
+class Login extends CI_Controller
 {
     function index()
     {
@@ -9,6 +9,7 @@ class Login extends MY_Controller
         $this->load->helper(['form', 'url']);
         $this->load->library('Smartyci');
         $this->load->library('form_validation');
+        $this->load->library('session');
 
         $smartyci = new Smartyci();
         $smartyci->setCompileCheck(false);

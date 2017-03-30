@@ -1,6 +1,6 @@
 <?php
 
-class RegisterForm extends MYController
+class RegisterForm extends CI_Controller
 {
     function index()
     {

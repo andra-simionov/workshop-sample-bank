@@ -8,6 +8,7 @@ class UserProfile extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->library('session');
 
         $this->setUsername($this->session->all_userdata()['Username']);
         $this->setIdUser($this->LoginModel->getUserIdByUserName($this->username));
