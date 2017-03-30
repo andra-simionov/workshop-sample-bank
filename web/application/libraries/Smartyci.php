@@ -13,7 +13,6 @@ class Smartyci extends Smarty
 
         $config =& get_config();
 
-        $this->caching = 1;
         $this->caching = 0;
         $this->cache_lifetime = 1;
 
