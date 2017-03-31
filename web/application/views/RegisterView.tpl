@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text">
                     <div class="description">
-                        <h1>Subscribe to our website</h1>
+                        <h1>Create a bank account</h1>
                     </div>
                 </div>
             </div>

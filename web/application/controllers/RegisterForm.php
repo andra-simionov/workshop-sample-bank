@@ -10,8 +10,6 @@ class RegisterForm extends CI_Controller
         $this->load->library('Smartyci');
         $this->load->library('form_validation');
 
-        $smartyci = new Smartyci();
-
         $config =  [
             [
                 'field'   => 'firstname',
@@ -57,6 +55,7 @@ class RegisterForm extends CI_Controller
             $this->RegisterModel->registerUser($userData);
         }
 
-        redirect('Login');
+        $smartyci = new Smartyci();
+        $smartyci->display('RegisterSuccess.tpl');
     }
 }

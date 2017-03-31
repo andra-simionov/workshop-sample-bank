@@ -85,6 +85,10 @@ img { max-width: 100%; }
     padding: 100px 0 170px 0;
 }
 
+.inner-bg-register {
+	padding: 20% 0 170px 0;
+}
+
 .top-content .text {
 	color: #fff;
 }
