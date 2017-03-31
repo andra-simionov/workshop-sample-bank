@@ -2,12 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-
     <title>Sample Bank</title>
-
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
 
@@ -49,9 +45,14 @@
     <div class="main-panel">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand navbar-right" href="{site_url('Logout')}">Logout</a>
-                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active">
+                        <a href="{site_url('Logout')}">
+                            <i class="ti-close"></i>
+                            <p><b>Logout</b></p>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </nav>
         <div class="content">
@@ -166,22 +167,7 @@
 <script src="../../bankAssets/js/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="../../bankAssets/js/bootstrap.min.js" type="text/javascript"></script>
 
-<!--  Checkbox, Radio & Switch Plugins -->
-<script src="../../bankAssets/js/bootstrap-checkbox-radio.js"></script>
-
-<!--  Charts Plugin -->
-<script src="../../bankAssets/js/chartist.min.js"></script>
-
 <!--  Notifications Plugin    -->
 <script src="../../bankAssets/js/bootstrap-notify.js"></script>
-
-<!--  Google Maps Plugin    -->
-<script type="../../bankAssets/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-
-<!-- Paper Dashboard Core javascript and methods for Demo purpose -->
-<script src="../../bankAssets/js/paper-dashboard.js"></script>
-
-<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-<script src="../../bankAssets/js/demo.js"></script>
 
 </html>
