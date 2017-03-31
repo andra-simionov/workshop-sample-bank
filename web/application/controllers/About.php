@@ -1,19 +1,15 @@
 <?php
 
-class Logout extends MY_Controller
+class About extends CI_Controller
 {
     function index()
     {
-        $this->load->helper(['form', 'url']);
-        $this->load->library('session');
+        parent::__construct();
+
+        $this->load->helper('url');
         $this->load->library('Smartyci');
         $smartyci = new Smartyci();
 
-        $this->session->sess_destroy();
         $smartyci->display('AboutView.tpl');
     }
 }
-
-
-
-
