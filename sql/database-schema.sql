@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `card_amounts` (
 	`IdCardAmounts` INT(11) NOT NULL AUTO_INCREMENT,
 	`IdCreditCard` INT(11) NOT NULL,
 	`Sold` INT(11) NOT NULL,
-	`Currency` INT(11) NOT NULL DEFAULT 'RON',
+	`Currency` VARCHAR(3) NOT NULL DEFAULT 'RON',
 	PRIMARY KEY (`IdCardAmounts`)
 )
 	COLLATE='utf8_general_ci'

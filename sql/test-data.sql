@@ -5,7 +5,7 @@ VALUES ('andra.s', 'Andra', 'Simi', 'andra@tahoo.com', '12345');
 
 SET @IdUser =  LAST_INSERT_ID();
 
-INSERT INTO `credit_cards` (`IdUser`, `CardNumber`, `Cvv`, `ExpirationMonth`, `ExpirationYear`, `AddData`)
+INSERT INTO `credit_cards` (`IdUser`, `CardNumber`, `Cvv`, `ExpirationMonth`, `ExpirationYear`, `AddDate`)
 VALUES (@IdUser, '41111111111111', '123', '10', '2020', NOW());
 
 SET @IdCard = LAST_INSERT_ID();
