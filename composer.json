@@ -1,6 +1,7 @@
 {
   "require": {
     "smarty/smarty": "3.1.16",
-    "guzzlehttp/guzzle": "~6.2"
+    "guzzlehttp/guzzle": "~6.2",
+    "slim/slim": "^3.0"
   }
 }
