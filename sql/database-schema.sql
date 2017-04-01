@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `credit_cards` (
 	`CardNumber` INT(19) NOT NULL,
 	`Cvv` INT(4) NOT NULL,
 	`ExpirationMonth` INT(2) NOT NULL,
-	`ExpirationYear` INT(2) NOT NULL,
+	`ExpirationYear` INT(4) NOT NULL,
 	`AddDate` DATETIME,
 	`ChangeDate` DATETIME,
 	PRIMARY KEY (`IdCreditCard`)
@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `card_amounts` (
 	`IdCardAmounts` INT(11) NOT NULL AUTO_INCREMENT,
 	`IdCreditCard` INT(11) NOT NULL,
 	`Sold` INT(11) NOT NULL,
+	`Currency` INT(11) NOT NULL DEFAULT 'RON',
 	PRIMARY KEY (`IdCardAmounts`)
 )
 	COLLATE='utf8_general_ci'
