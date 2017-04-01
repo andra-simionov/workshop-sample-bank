@@ -136,4 +136,6 @@ $autoload['model'] = [
     'LoginModel',
     'RegisterModel',
     'UserProfileModel',
+    'RequestValidatorModel',
+    'RequestProcessorModel',
     ];

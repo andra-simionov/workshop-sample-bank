@@ -65,6 +65,23 @@ class UserProfileModel extends CI_Model
         return $result['Sold'];
     }
 
+    public function getUserSoldByEmail($email)
+    {
+        $result = $this->db->select(['Sold'])
+            ->from('card_amounts')
+            ->join('credit_cards', 'card_amounts.IdCreditCard=credit_cards.IdCreditCard')
+            ->join('users', 'users.IdUser=credit_cards.IdUser')
+            ->where('users.Email', $email)
+            ->get()
+            ->row_array();
+
+        if (empty($result)) {
+            return 0;
+        }
+
+        return $result['Sold'];
+    }
+
     private function getIdCardByIdUser($idUser)
     {
         $idCard = $this->db->select('IdCreditCard')
