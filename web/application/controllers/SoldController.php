@@ -15,15 +15,17 @@ class SoldController extends REST_Controller
 
     public function sold_post()
     {
-        $requestData['Email'] = $this->post(['Email']);
-        $requestData['Amount'] = $this->post(['Amount']);
-        $requestData['Currency'] = $this->post(['Currency']);
+        $email = $this->post('email');
+        $requestData['Email'] = $email;
+        $requestData['Amount'] = $this->post('orderData')['amount'];
+        $requestData['Currency'] = $this->post('orderData')['currency'];
 
-        $requestData['ClientId'] = $this->head('ClientId');
-        $requestData['SecretKey'] = $this->head('SecretKey');
+        $requestCredentials = explode(',', $this->head('Authorization'));
+        $clientId = $requestCredentials[0];
+        $secretKey = $requestCredentials[1];
 
         try {
-            $this->requestvalidator->checkUserCredentials($requestData);
+            $this->requestvalidator->validateRequestCredentials($email, $clientId, $secretKey);
             $this->requestprocessor->processRequest($requestData);
 
             $apiResponse['Message'] = 'Operation successful';

@@ -17,7 +17,7 @@ class RequestProcessorModel extends CI_Model
         $idCard = $this->getIdCardByEmail($email);
 
         $this->db->where('IdCreditCard', $idCard)
-            ->update('card_amounts', $amount);
+            ->update('card_amounts', ['Sold' => $amount]);
 
         return $this->db->affected_rows() > 0;
     }

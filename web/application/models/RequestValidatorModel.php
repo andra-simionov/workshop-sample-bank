@@ -11,11 +11,11 @@ class RequestValidatorModel extends CI_Model
      * @param array $userCredentials
      * @return int
      */
-    public function checkUserCredentials(array $userCredentials)
+    public function checkUserCredentials($email, $clientId, $secretKey)
     {
         $result = $this->db->select('*')
             ->from('user_credentials')
-            ->where($userCredentials)
+            ->where(['Email' => $email, 'ClientId' => $clientId, 'SecretKey' => $secretKey])
             ->get()
             ->row_array();
 

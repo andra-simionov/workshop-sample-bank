@@ -2,21 +2,14 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-require '../vendor/autoload.php';
-
-use Slim\Http\Request;
-
 class RequestValidator
 {
-    public function validateRequestCredentials($email, array $userCredentials)
+    public function validateRequestCredentials($email, $clientId, $secretKey)
     {
-        $userCredentials = explode($userCredentials, ',');
+        $CI = & get_instance();
+        $CI->load->model('RequestValidatorModel');
 
-        $userCredentialsArray['Email'] = $email;
-        $userCredentialsArray['ClientId'] = $userCredentials[0];
-        $userCredentialsArray['SecretKey'] = $userCredentials[1];
-
-        if (empty($this->RequestValidatorModel->checkUserCredentials($userCredentialsArray))) {
+        if (empty($CI->RequestValidatorModel->checkUserCredentials($email, $clientId, $secretKey))) {
             throw new Exception('There is no user associated with the request credentials');
         }
     }
