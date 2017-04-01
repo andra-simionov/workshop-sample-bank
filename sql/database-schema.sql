@@ -20,7 +20,7 @@ AUTO_INCREMENT=0;
 CREATE TABLE IF NOT EXISTS `credit_cards` (
 	`IdCreditCard` INT(11) NOT NULL AUTO_INCREMENT,
 	`IdUser` INT(11) NOT NULL,
-	`CardNumber` INT(19) NOT NULL,
+	`CardNumber` VARCHAR(19) NOT NULL,
 	`Cvv` INT(4) NOT NULL,
 	`ExpirationMonth` INT(2) NOT NULL,
 	`ExpirationYear` INT(4) NOT NULL,
