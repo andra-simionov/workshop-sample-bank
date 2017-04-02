@@ -32,7 +32,7 @@ class SoldController extends REST_Controller
             $this->response(['Status' => 'Success']);
         } catch (Exception $e) {
             $apiResponse['Message'] = $e->getMessage();
-            $this->response(['Status' => 'Error', 'Message' => $e->getMessage()]);
+            $this->response(['Status' => 'Error', 'Message' => $e->getMessage()], 400);
         }
     }
  }
