@@ -22,7 +22,7 @@ class SoldController extends REST_Controller
         $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
 
         try {
-            $this->requestvalidator->validateRequestStructure(requestvalidator::REQUIRED_REQUEST_KEYS);
+            $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_REQUEST_KEYS);
 
             $email = $postData['email'];
 
