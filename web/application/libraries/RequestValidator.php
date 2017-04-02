@@ -31,12 +31,16 @@ class RequestValidator
      */
     public function validateRequestStructure(array $requestData, $format)
     {
-        foreach ($format as $value) {
-            if (is_array($value)) {
-                $this->validateRequestStructure($value, $format);
+        foreach ($format as $key => $value) {
+            if (is_numeric($key)) {
+                $key = $value;
             }
 
-            if (!isset($requestData[$value])) {
+            if (is_array($value)) {
+                $this->validateRequestStructure($requestData[$key], $value);
+            }
+
+            if (!isset($requestData[$key])) {
                 throw new Exception("Parameter '$value' is missing");
             }
 
