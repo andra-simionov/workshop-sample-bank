@@ -52,7 +52,7 @@ class RegisterForm extends CI_Controller
                 'Password' => $this->input->post('password'),
             ];
 
-            $this->RegisterModel->registerUser($userData);
+            $this->UserDataModel->registerUser($userData);
         }
 
         $smartyci = new Smartyci();

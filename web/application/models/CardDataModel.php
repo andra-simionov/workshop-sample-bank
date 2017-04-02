@@ -1,6 +1,6 @@
 <?php
 
-class UserProfileModel extends CI_Model
+class CardDataModel extends CI_Model
 {
     public function __construct()
     {
@@ -21,6 +21,10 @@ class UserProfileModel extends CI_Model
             ->update('credit_cards', $data);
     }
 
+    /**
+     * @param $idUser
+     * @return int
+     */
     public function getUserCardNo($idUser)
     {
         $result = $this->db->select('*')
@@ -65,6 +69,10 @@ class UserProfileModel extends CI_Model
         return $result['Sold'];
     }
 
+    /**
+     * @param $email
+     * @return int
+     */
     public function getUserSoldByEmail($email)
     {
         $result = $this->db->select(['Sold'])
@@ -82,6 +90,27 @@ class UserProfileModel extends CI_Model
         return $result['Sold'];
     }
 
+    /**
+     * @param $email
+     * @return mixed
+     */
+    public function getUserSoldCurrencyByEmail($email)
+    {
+        $result = $this->db->select(['Currency'])
+            ->from('card_amounts')
+            ->join('credit_cards', 'card_amounts.IdCreditCard=credit_cards.IdCreditCard')
+            ->join('users', 'users.IdUser=credit_cards.IdUser')
+            ->where('users.Email', $email)
+            ->get()
+            ->row_array();
+
+        return $result['Currency'];
+    }
+
+    /**
+     * @param $idUser
+     * @return mixed
+     */
     private function getIdCardByIdUser($idUser)
     {
         $idCard = $this->db->select('IdCreditCard')

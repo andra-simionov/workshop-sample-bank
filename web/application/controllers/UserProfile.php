@@ -11,7 +11,7 @@ class UserProfile extends MY_Controller
         $this->load->library('session');
 
         $this->setUsername($this->session->all_userdata()['Username']);
-        $this->setIdUser($this->LoginModel->getUserIdByUserName($this->username));
+        $this->setIdUser($this->UserDataModel->getUserIdByUsername($this->username));
     }
 
     function index()
@@ -22,10 +22,10 @@ class UserProfile extends MY_Controller
         $smartyci = new Smartyci();
 
         $smartyci->assign('username', $this->username);
-        $smartyci->assign('noOfCreditCards', $this->UserProfileModel->getUserCardNo($this->idUser));
-        $smartyci->assign('totalSold', $this->UserProfileModel->getUserSold($this->idUser));
+        $smartyci->assign('noOfCreditCards', $this->CardDataModel->getUserCardNo($this->idUser));
+        $smartyci->assign('totalSold', $this->CardDataModel->getUserSold($this->idUser));
 
-        $cardData = $this->UserProfileModel->getUserCards($this->idUser);
+        $cardData = $this->CardDataModel->getUserCards($this->idUser);
         $smartyci->assign('cardData', $cardData);
 
         $smartyci->display('UserProfileView.tpl');
@@ -43,7 +43,7 @@ class UserProfile extends MY_Controller
             'Cvv' => $this->input->post('cvv'),
         ];
 
-        $this->UserProfileModel->addCardData($cardData, $this->idUser);
+        $this->CardDataModel->addCardData($cardData, $this->idUser);
 
         redirect('UserProfile');
     }

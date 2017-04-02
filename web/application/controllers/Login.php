@@ -38,14 +38,14 @@ class Login extends CI_Controller
                 'password' => $this->input->post('password')
             ];
 
-            $result = $this->LoginModel->isUserRegistred($data);
+            $result = $this->UserDataModel->isUserRegistered($data);
 
             if ($result != TRUE) {
                 $smartyci->assign('error', 'Invalid username or password');
                 $smartyci->display('LoginError.tpl');
             } else {
                 $username = $this->input->post('username');
-                $result = $this->LoginModel->getUserInfo($data);
+                $result = $this->UserDataModel->getUserInfo($data);
                 $this->session->set_userdata($result);
                 $this->session->set_userdata(['Username' => $username]);
 
