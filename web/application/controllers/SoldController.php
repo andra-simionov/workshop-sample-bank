@@ -19,7 +19,7 @@ class SoldController extends REST_Controller
     public function sold_post()
     {
         $postData = $this->post();
-        $apiResponse['orderData']['reference'] = $postData('orderData')['reference'];
+        $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
 
         try {
             $this->requestvalidator->validateRequestStructure(requestvalidator::REQUIRED_REQUEST_KEYS);
@@ -30,8 +30,8 @@ class SoldController extends REST_Controller
             $authCredentials['ClientId'] = $requestCredentials[0];
             $authCredentials['SecretKey'] = $requestCredentials[1];
 
-            $requestAmount = $postData('orderData')['amount'];
-            $requestCurrency = $postData('orderData')['currency'];
+            $requestAmount = $postData['orderData']['amount'];
+            $requestCurrency = $postData['orderData']['currency'];
 
             $this->requestvalidator->validateRequestCredentials($email, $authCredentials);
             $this->requestvalidator->validateOrderData($email, $requestAmount, $requestCurrency);
