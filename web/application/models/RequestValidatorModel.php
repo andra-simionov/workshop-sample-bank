@@ -21,21 +21,4 @@ class RequestValidatorModel extends CI_Model
 
         return $result;
     }
-
-    /**
-     * @param $email
-     * @param array $userCredentials
-     * @return mixed
-     */
-    public function validateUserCredentialsByEmail($email, array $userCredentials)
-    {
-        $result = $this->db->select('*')
-            ->from('user_credentials')
-            ->where('Email', $email)
-            ->where($userCredentials)
-            ->get()
-            ->row_array();
-
-        return $result;
-    }
 }

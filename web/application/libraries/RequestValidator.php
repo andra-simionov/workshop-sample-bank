@@ -44,14 +44,16 @@ class RequestValidator
 
     /**
      * @param $email
-     * @param $userCredentials
+     * @param $requestCredentials
      * @throws Exception
      */
-    public function validateRequestCredentials($email, $userCredentials)
+    public function validateRequestCredentials($email, $requestCredentials)
     {
-        if (empty($this->ci->RequestValidatorModel->checkUserCredentials($userCredentials))) {
+        $userCredentials = $this->ci->RequestValidatorModel->checkUserCredentials($requestCredentials);
+
+        if (empty($userCredentials)) {
             throw new Exception('Authentication failed. Wrong user credentials.');
-        } elseif (empty($this->ci->RequestValidatorModel->validateUserCredentialsByEmail($email, $userCredentials))) {
+        } elseif ($email !== $userCredentials['Email']) {
             throw new Exception('Authentication failed. No user associated with the credentials.');
         }
     }

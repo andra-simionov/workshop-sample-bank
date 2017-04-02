@@ -27,13 +27,13 @@ class SoldController extends REST_Controller
             $email = $postData['email'];
 
             $requestCredentials = explode(',', $this->head('Authorization'));
-            $userCredentials['ClientId'] = $requestCredentials[0];
-            $userCredentials['SecretKey'] = $requestCredentials[1];
+            $authCredentials['ClientId'] = $requestCredentials[0];
+            $authCredentials['SecretKey'] = $requestCredentials[1];
 
             $requestAmount = $postData('orderData')['amount'];
             $requestCurrency = $postData('orderData')['currency'];
 
-            $this->requestvalidator->validateRequestCredentials($email, $userCredentials);
+            $this->requestvalidator->validateRequestCredentials($email, $authCredentials);
             $this->requestvalidator->validateOrderData($email, $requestAmount, $requestCurrency);
 
             $this->requestprocessor->processRequest($email, $requestAmount);
