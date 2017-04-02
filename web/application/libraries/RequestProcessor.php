@@ -4,22 +4,19 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class RequestProcessor
 {
-    public function processRequest(array $requestData)
+    /**
+     * @param $email
+     * @param $requestAmount
+     */
+    public function processRequest($email, $requestAmount)
     {
-        $CI = & get_instance();
-        $CI->load->model('RequestProcessorModel');
-        $CI->load->model('UserProfileModel');
+        $ci = & get_instance();
+        $ci->load->model('RequestProcessorModel');
+        $ci->load->model('CardDataModel');
 
-        $userEmail = $requestData['Email'];
-        $requestAmount = $requestData['Amount'];
-        $requestCurrency = $requestData['Currency'];
+        $originalAmount = $ci->CardDataModel->getUserSoldByEmail($email);
+        $updatedAmount = $originalAmount - $requestAmount;
 
-        if ($requestAmount > $CI->UserProfileModel->getUserSoldByEmail($userEmail)) {
-            throw new Exception('Insufficient funds!');
-        }
-
-        //TODO validare pentru currency
-
-        $CI->RequestProcessorModel->updateSold($userEmail, $requestAmount);
+        $ci->RequestProcessorModel->updateSold($email, $updatedAmount);
     }
 }

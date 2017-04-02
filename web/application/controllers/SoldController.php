@@ -13,26 +13,41 @@ class SoldController extends REST_Controller
         $this->load->library('RequestProcessor');
     }
 
+    /**
+     *
+     */
     public function sold_post()
     {
-        $email = $this->post('email');
-        $requestData['Email'] = $email;
-        $requestData['Amount'] = $this->post('orderData')['amount'];
-        $requestData['Currency'] = $this->post('orderData')['currency'];
-
-        $requestCredentials = explode(',', $this->head('Authorization'));
-        $clientId = $requestCredentials[0];
-        $secretKey = $requestCredentials[1];
+        $postData = $this->post();
+        $apiResponse['orderData']['reference'] = $postData('orderData')['reference'];
 
         try {
-            $this->requestvalidator->validateRequestCredentials($email, $clientId, $secretKey);
-            $this->requestprocessor->processRequest($requestData);
+            $this->requestvalidator->validateRequestStructure(requestvalidator::REQUIRED_REQUEST_KEYS);
 
-            $apiResponse['Message'] = 'Operation successful';
-            $this->response(['Status' => 'Success']);
+            $email = $postData['email'];
+
+            $requestCredentials = explode(',', $this->head('Authorization'));
+            $userCredentials['ClientId'] = $requestCredentials[0];
+            $userCredentials['SecretKey'] = $requestCredentials[1];
+
+            $requestAmount = $postData('orderData')['amount'];
+            $requestCurrency = $postData('orderData')['currency'];
+
+            $this->requestvalidator->validateRequestCredentials($email, $userCredentials);
+            $this->requestvalidator->validateOrderData($email, $requestAmount, $requestCurrency);
+
+            $this->requestprocessor->processRequest($email, $requestAmount);
+
+            $apiResponse['meta']['status'] = 'Ok';
+            $apiResponse['meta']['message'] = 'Operation successful';
+            $httpCode = 200;
+
         } catch (Exception $e) {
-            $apiResponse['Message'] = $e->getMessage();
-            $this->response(['Status' => 'Error', 'Message' => $e->getMessage()], 400);
+            $apiResponse['meta']['status'] = 'Error';
+            $apiResponse['meta']['message'] = $e->getMessage();
+            $httpCode = 400;
         }
+
+        $this->response($apiResponse, $httpCode);
     }
  }
