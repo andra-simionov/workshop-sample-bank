@@ -32,13 +32,14 @@ class RequestValidator
     public function validateRequestStructure(array $requestData, $format)
     {
         foreach ($format as $value) {
-            if (!isset($requestData[$value])) {
-                throw new Exception("Parameter '$value' is missing'");
-            }
-
             if (is_array($value)) {
                 $this->validateRequestStructure($value, $format);
             }
+
+            if (!isset($requestData[$value])) {
+                throw new Exception("Parameter '$value' is missing");
+            }
+
         }
     }
 
