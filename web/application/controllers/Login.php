@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
+
 class Login extends CI_Controller
 {
     function index()
@@ -8,11 +12,11 @@ class Login extends CI_Controller
 
         $this->load->helper(['form', 'url']);
         $this->load->library('Smartyci');
-        $this->load->library('form_validation');
         $this->load->library('session');
 
-        $smartyci = new Smartyci();
-        $smartyci->setCompileCheck(false);
+        $this->load->library('form_validation');
+
+        $this->smartyci->setCompileCheck(false);
 
         $config =  [
             [
@@ -29,30 +33,45 @@ class Login extends CI_Controller
 
         $this->form_validation->set_rules($config);
 
-        if ($this->form_validation->run() == FALSE && !isset($this->session->all_userdata()['Username'])) {
-            $smartyci->display('LoginView.tpl');
-        } else if ($this->form_validation->run() == TRUE && !isset($this->session->all_userdata()['Username'])) {
+        if ($this->form_validation->run() == FALSE && !isset($this->session->all_userdata()['IdUser'])) {
+            $this->smartyci->display('LoginView.tpl');
+        } else if ($this->form_validation->run() == TRUE && !isset($this->session->all_userdata()['IdUser'])) {
 
-            $data = [
-                'username' => $this->input->post('username'),
-                'password' => $this->input->post('password')
-            ];
+            $username = $this->input->post('username');
+            $password = $this->input->post('password');
 
-            $result = $this->UserDataModel->isUserRegistered($data);
+            $userData = NULL;
+            try {
+                $userData = $this->UserDataModel->getUserInfoByUsername($username);
+            } catch (Exception $e) {
+                $this->smartyci->assign('error', $e->getMessage());
+            }
 
-            if ($result != TRUE) {
-                $smartyci->assign('error', 'Invalid username or password');
-                $smartyci->display('LoginError.tpl');
+            if ($userData == NULL) {
+                $correctCredentials = FALSE;
             } else {
-                $username = $this->input->post('username');
-                $result = $this->UserDataModel->getUserInfo($data);
-                $this->session->set_userdata($result);
-                $this->session->set_userdata(['Username' => $username]);
+                $correctCredentials = $this->UserDataModel->checkPassword($password, $userData->Password);
+            }
 
-                redirect('UserProfile');
+            if ($correctCredentials != TRUE) {
+                $this->smartyci->assign('error', 'Invalid username or password');
+                $this->smartyci->display('LoginErrorView.tpl');
+            } else {
+
+                $userInfo = NULL;
+                try {
+                    $userInfo = $this->UserDataModel->getUserInfoByUsername($username);
+                } catch (Exception $e) {
+                    $this->smartyci->assign('error', $e->getMessage());
+                }
+
+                $userId = $userInfo->IdUser;
+                $this->session->set_userdata(['IdUser' => $userId]);
+
+                redirect('UserAccount');
             }
         } else {
-            redirect('UserProfile');
+            redirect('UserAccount');
         }
     }
 }

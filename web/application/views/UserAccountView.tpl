@@ -98,7 +98,7 @@
                                 <div class="footer">
                                     <hr>
                                     <div class="stats">
-                                        <i class="ti-calendar"></i> Last day
+                                        Currency: {$soldCurrency}
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                 <h4 class="title">Credit Card</h4>
                             </div>
                             <div class="content">
-                                {form_open(base_url('UserProfile/addCreditCard'))}
+                                {form_open(base_url('UserAccount/addCreditCard'))}
                                 <div class="row">
                                     <div class="col-md-7">
                                         <div class="form-group">

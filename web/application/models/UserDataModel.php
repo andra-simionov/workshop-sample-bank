@@ -8,15 +8,26 @@ class UserDataModel extends CI_Model
     }
 
     /**
-     * @param array $userData
+     * @param string $username
+     * @param string $password
+     * @param string $email
+     *
+     * @return bool
      */
-    public function registerUser(array $userData)
+    public function registerUser($username, $password, $email)
     {
+        $userData = [
+            'Username' => $username,
+            'Password' => $this->hashPassword($password),
+            'Email' => $email,
+        ];
+
         $this->db->insert('users', $userData);
     }
 
     /**
      * @param array $data
+     *
      * @return bool
      */
     public function isUserRegistered(array $data)
@@ -38,31 +49,93 @@ class UserDataModel extends CI_Model
     }
 
     /**
-     * @param array $data
-     * @return mixed
+     * @param string $email
+     *
+     * @return bool
      */
-    public function getUserInfo(array $data)
+    public function emailAlreadyExists($email)
     {
-        $username = $data['username'];
-        $password = $data['password'];
-
         $result = $this->db->select('*')
             ->from('users')
-            ->where(['Username' => $username, 'Password' => $password])
+            ->where(['Email' => $email])
             ->get()
             ->result_array();
 
-        return $result;
+        if (count($result) > 0) {
+            return true;
+        }
+
+        return false;
     }
 
-    public function getUserIdByUsername($username)
+    /**
+     * @param string $username
+     * @return stdClass
+     *
+     * @throws Exception
+     */
+    public function getUserInfoByUsername($username)
     {
-        $result = $this->db->select('IdUser')
+        $result = $this->db->select('*')
             ->from('users')
-            ->where('Username', $username)
-            ->get()
-            ->row_array();
+            ->where('users.Username', $username)
+            ->get();
 
-        return $result['IdUser'];
+        if ($result->first_row() != NULL) {
+            return $result->first_row();
+        } else {
+            throw new \Exception("Invalid user!");
+        }
+    }
+
+    public function getUserInfoByUserId($idUser)
+    {
+        $result = $this->db->select('*')
+            ->from('users')
+            ->where('users.IdUser', $idUser)
+            ->get();
+
+        return $result->first_row();
+    }
+
+    /**
+     * @param $password
+     * @return string
+     */
+    public function hashPassword($password)
+    {
+        $salt = $this->generateSalt();
+
+        return $salt . '.' . md5($salt . $password);
+    }
+
+    /**
+     * @param $password
+     * @param $hashedPassword
+     * @return bool
+     */
+    public function checkPassword($password, $hashedPassword)
+    {
+        list($salt, $hash) = explode('.', $hashedPassword);
+        $hashedFormPassword = $salt . '.' . md5($salt . $password);
+
+        return ($hashedPassword == $hashedFormPassword);
+    }
+
+    /**
+     * @param int $length
+     * @return string
+     */
+    private function generateSalt($length = 10)
+    {
+        $characterList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $i = 0;
+        $salt = "";
+        while ($i < $length) {
+            $salt .= $characterList{mt_rand(0, (strlen($characterList) - 1))};
+            $i++;
+        }
+
+        return $salt;
     }
 }

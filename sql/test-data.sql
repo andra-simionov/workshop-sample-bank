@@ -1,8 +1,8 @@
 USE sample_bank;
 
 INSERT INTO `users` (`Username`, `Firstname`, `Lastname`, `Email`, `Password`, `RegistrationDate`)
-VALUES ('andra.s', 'Andra', 'Simi', 'andra@yahoo.com', '12345', NOw()),
-  ('diana.d', 'Diana', 'Drajdi', 'diana@yahoo.com', '12345', NOW());
+VALUES ('andra.s', 'Andra', 'Simi', 'andra@yahoo.com', 'FpzDtOh4YG.ea52fc619ec7905b56bfc9d978a3cf37', NOw()),
+  ('diana.d', 'Diana', 'Drajdi', 'diana@yahoo.com', 'FpzDtOh4YG.ea52fc619ec7905b56bfc9d978a3cf37', NOW());
 
 INSERT INTO `credit_cards` (`IdUser`, `CardNumber`, `Cvv`, `ExpirationMonth`, `ExpirationYear`, `AddDate`)
 VALUES (1, '4111111111111111', '123', '10', '2021', NOW()),
