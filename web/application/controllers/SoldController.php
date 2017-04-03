@@ -1,5 +1,9 @@
 <?php
 
+if (! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
+
 use Restserver\Libraries\REST_Controller;
 
 require(APPPATH . 'libraries/REST_Controller.php');
