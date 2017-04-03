@@ -73,6 +73,30 @@ class CardDataModel extends CI_Model
         return $result['Sold'];
     }
 
+
+    /**
+     * @param string $email
+     * @return array
+     *
+     * @throws Exception
+     */
+    public function getCardDataByEmail($email)
+    {
+        $result = $this->db->select(['CardNumber', 'Cvv', 'ExpirationYear', 'ExpirationMonth'])
+            ->from('credit_cards')
+            ->join('users', 'users.IdUser=credit_cards.IdUser')
+            ->where('users.Email', $email)
+            ->get()
+            ->row_array();
+
+        if (empty($result)) {
+         //   throw new \Exception("Invalid email!");
+            return ['CardNumber' => '', 'Cvv' => '', 'ExpirationYear' => '', 'ExpirationMonth' => ''];
+        }
+
+        return $result;
+    }
+
     /**
      * @param $email
      * @return mixed

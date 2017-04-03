@@ -25,6 +25,13 @@ class RequestValidator
         'email',
     ];
 
+
+    const REQUIRED_GET_CARD_DATA_REQUEST_KEYS = [
+        'timestamp',
+        'requestId',
+        'email',
+    ];
+
     public function __construct()
     {
         $this->ci = & get_instance();

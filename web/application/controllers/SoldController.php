@@ -10,6 +10,9 @@ require(APPPATH . 'libraries/REST_Controller.php');
 
 class SoldController extends REST_Controller
 {
+    const SUCCESS_HTTP_CODE = "200";
+    const ERROR_HTTP_CODE = "400";
+
     public function __construct()
     {
         parent::__construct();
@@ -27,11 +30,7 @@ class SoldController extends REST_Controller
 
             $email = $postData['email'];
 
-            $requestCredentials = explode(',', $this->head('Authorization'));
-            $authCredentials['ClientId'] = $requestCredentials[0];
-            $authCredentials['SecretKey'] = $requestCredentials[1];
-
-            $this->requestvalidator->validateRequestCredentials($email, $authCredentials);
+            $this->checkApiAuthentification($this->head('Authorization'), $email);
 
             $requestAmount = $postData['orderData']['amount'];
             $requestCurrency = $postData['orderData']['currency'];
@@ -40,14 +39,13 @@ class SoldController extends REST_Controller
 
             $this->requestprocessor->processPayRequest($email, $requestAmount);
 
-            $apiResponse['meta']['status'] = 'Ok';
-            $apiResponse['meta']['message'] = 'Operation successful';
-            $httpCode = 200;
+            $apiResponse = $this->getApiMetaResponseForSuccess();
+
+            $httpCode = self::SUCCESS_HTTP_CODE;
 
         } catch (Exception $e) {
-            $apiResponse['meta']['status'] = 'Error';
-            $apiResponse['meta']['message'] = $e->getMessage();
-            $httpCode = 400;
+            $this->getApiMetaResponseForError($e->getMessage());
+            $httpCode = self::ERROR_HTTP_CODE;
         }
 
         $this->response($apiResponse, $httpCode);
@@ -62,24 +60,81 @@ class SoldController extends REST_Controller
 
             $email = $getData['email'];
 
-            $requestCredentials = explode(',', $this->head('Authorization'));
-            $authCredentials['ClientId'] = $requestCredentials[0];
-            $authCredentials['SecretKey'] = $requestCredentials[1];
-
-            $this->requestvalidator->validateRequestCredentials($email, $authCredentials);
+            $this->checkApiAuthentification($this->head('Authorization'), $email);
 
             $currentSold = $this->requestprocessor->processGetSoldRequest($email);
 
-            $apiResponse['meta']['status'] = 'Ok';
-            $apiResponse['meta']['message'] = 'Operation successful';
+            $apiResponse = $this->getApiMetaResponseForSuccess();
+
             $apiResponse['userData']['sold'] = $currentSold;
-            $httpCode = 200;
+            $httpCode = self::SUCCESS_HTTP_CODE;
 
         } catch (Exception $e) {
-            $apiResponse['meta']['status'] = 'Error';
-            $apiResponse['meta']['message'] = $e->getMessage();
-            $httpCode = 400;
+            $this->getApiMetaResponseForError($e->getMessage());
+            $httpCode = self::ERROR_HTTP_CODE;
         }
         $this->response($apiResponse, $httpCode);
+    }
+
+
+    public function getCardData_get()
+    {
+        $getData = $this->get();
+
+        try {
+            $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_CARD_DATA_REQUEST_KEYS);
+
+            $email = $getData['email'];
+
+            $this->checkApiAuthentification($this->head('Authorization'), $email);
+
+            $cardData = $this->requestprocessor->processGetCardDataRequest($email);
+
+            $apiResponse = $this->getApiMetaResponseForSuccess();
+            $apiResponse['cardData'] = $cardData;
+            $httpCode = self::SUCCESS_HTTP_CODE;
+
+        } catch (Exception $e) {
+            $apiResponse = $this->getApiMetaResponseForError($e->getMessage());
+            $httpCode = self::ERROR_HTTP_CODE;
+        }
+
+        $this->response($apiResponse, $httpCode);
+    }
+
+    /**
+     * @param $authorizationHeader
+     * @param $email
+     */
+    private function checkApiAuthentification($authorizationHeader, $email)
+    {
+        $requestCredentials = explode(',', $authorizationHeader);
+        $authCredentials['ClientId'] = $requestCredentials[0];
+        $authCredentials['SecretKey'] = $requestCredentials[1];
+
+        $this->requestvalidator->validateRequestCredentials($email, $authCredentials);
+    }
+
+    /**
+     * @return array
+     */
+    private function getApiMetaResponseForSuccess()
+    {
+        $apiResponse['meta']['status'] = 'Ok';
+        $apiResponse['meta']['message'] = 'Operation successful';
+
+        return $apiResponse;
+    }
+
+    /**
+     * @param string $errorMessage
+     * @return array
+     */
+    private function getApiMetaResponseForError($errorMessage)
+    {
+        $apiResponse['meta']['status'] = 'Error';
+        $apiResponse['meta']['message'] = $errorMessage;
+
+        return $apiResponse;
     }
  }

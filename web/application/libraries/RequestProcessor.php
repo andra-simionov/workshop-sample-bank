@@ -14,8 +14,8 @@ class RequestProcessor
     }
 
     /**
-     * @param $email
-     * @param $requestAmount
+     * @param string $email
+     * @param int $requestAmount
      */
     public function processPayRequest($email, $requestAmount)
     {
@@ -26,10 +26,25 @@ class RequestProcessor
     }
 
     /**
-     * @param $email
+     * @param string $email
      */
     public function processGetSoldRequest($email)
     {
         return $this->ci->CardDataModel->getUserSoldByEmail($email);
+    }
+
+    /**
+     * @param string $email
+     * @return array
+     */
+    public function processGetCardDataRequest($email)
+    {
+        $cardData = $this->ci->CardDataModel->getCardDataByEmail($email);
+
+        return [
+            'ExpirationDate' => $cardData['ExpirationMonth'] . '/' . $cardData['ExpirationYear'],
+            'CardNumber' => $cardData['CardNumber'],
+            'Cvv' => $cardData['Cvv']
+        ];
     }
 }
