@@ -25,10 +25,12 @@ class UserAccount extends CI_Controller
         $this->load->library('Smartyci');
         $smartyci = new Smartyci();
 
+        $userEmail = $this->userInfo->Email;
+
         $smartyci->assign('username', $this->userInfo->Username);
         $smartyci->assign('noOfCreditCards', $this->CardDataModel->getUserCardNo($this->idUser));
-        $smartyci->assign('soldCurrency', $this->CardDataModel->getUserSoldCurrencyByEmail($this->userInfo->Email));
-        $smartyci->assign('totalSold', $this->CardDataModel->getUserSold($this->idUser));
+        $smartyci->assign('soldCurrency', $this->CardDataModel->getUserSoldCurrencyByEmail($userEmail));
+        $smartyci->assign('totalSold', $this->CardDataModel->getUserSoldByEmail($userEmail));
 
         $cardData = $this->CardDataModel->getUserCards($this->idUser);
         $smartyci->assign('cardData', $cardData);
