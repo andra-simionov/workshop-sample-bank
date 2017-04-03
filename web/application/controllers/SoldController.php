@@ -103,8 +103,8 @@ class SoldController extends REST_Controller
     }
 
     /**
-     * @param $authorizationHeader
-     * @param $email
+     * @param string $authorizationHeader
+     * @param string $email
      */
     private function checkApiAuthentification($authorizationHeader, $email)
     {
