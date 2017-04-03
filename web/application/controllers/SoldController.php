@@ -72,7 +72,7 @@ class SoldController extends REST_Controller
 
             $apiResponse['meta']['status'] = 'Ok';
             $apiResponse['meta']['message'] = 'Operation successful';
-            $apiResponse['orderData']['sold'] = $currentSold;
+            $apiResponse['userData']['sold'] = $currentSold;
             $httpCode = 200;
 
         } catch (Exception $e) {
