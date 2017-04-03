@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-class UserAccount extends CI_Controller
+class UserAccount extends Base_Controller
 {
     private $idUser;
     private $userInfo;
