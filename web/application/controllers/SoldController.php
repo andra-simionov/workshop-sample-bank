@@ -16,10 +16,7 @@ class SoldController extends REST_Controller
         $this->load->library('RequestValidator');
         $this->load->library('RequestProcessor');
     }
-
-    /**
-     *
-     */
+    
     public function sold_post()
     {
         $postData = $this->post();
