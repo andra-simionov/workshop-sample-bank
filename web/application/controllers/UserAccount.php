@@ -1,17 +1,21 @@
 <?php
 
-class UserProfile extends MY_Controller
+if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
+
+class UserAccount extends CI_Controller
 {
-    private $username;
     private $idUser;
+    private $userInfo;
 
     public function __construct()
     {
         parent::__construct();
         $this->load->library('session');
 
-        $this->setUsername($this->session->all_userdata()['Username']);
-        $this->setIdUser($this->UserDataModel->getUserIdByUsername($this->username));
+        $this->setIdUser($this->session->all_userdata()['IdUser']);
+        $this->setUserInfo($this->UserDataModel->getUserInfoByUserId($this->idUser));
     }
 
     function index()
@@ -21,14 +25,15 @@ class UserProfile extends MY_Controller
         $this->load->library('Smartyci');
         $smartyci = new Smartyci();
 
-        $smartyci->assign('username', $this->username);
+        $smartyci->assign('username', $this->userInfo->Username);
         $smartyci->assign('noOfCreditCards', $this->CardDataModel->getUserCardNo($this->idUser));
+        $smartyci->assign('soldCurrency', $this->CardDataModel->getUserSoldCurrencyByEmail($this->userInfo->Email));
         $smartyci->assign('totalSold', $this->CardDataModel->getUserSold($this->idUser));
 
         $cardData = $this->CardDataModel->getUserCards($this->idUser);
         $smartyci->assign('cardData', $cardData);
 
-        $smartyci->display('UserProfileView.tpl');
+        $smartyci->display('UserAccountView.tpl');
     }
 
     public function addCreditCard()
@@ -45,15 +50,7 @@ class UserProfile extends MY_Controller
 
         $this->CardDataModel->addCardData($cardData, $this->idUser);
 
-        redirect('UserProfile');
-    }
-
-    /**
-     * @param mixed $username
-     */
-    private function setUsername($username)
-    {
-        $this->username = $username;
+        redirect('UserAccount');
     }
 
     /**
@@ -62,5 +59,13 @@ class UserProfile extends MY_Controller
     private function setIdUser($idUser)
     {
         $this->idUser = $idUser;
+    }
+
+    /**
+     * @param $userInfo
+     */
+    private function setUserInfo($userInfo)
+    {
+        $this->userInfo = $userInfo;
     }
 }
