@@ -39,7 +39,7 @@
             <div class="container-fluid">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active">
-                        <a href="{site_url('RegisterPage')}" class="navbar-brand">
+                        <a href="{site_url('Register')}" class="navbar-brand">
                             <i class="ti-lock"></i>
                             <p >Register</p>
                         </a>
