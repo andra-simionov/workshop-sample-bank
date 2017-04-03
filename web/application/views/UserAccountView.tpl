@@ -28,7 +28,7 @@
     <div class="sidebar" data-background-color="white" data-active-color="danger">
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="#" class="simple-text">
+                <a class="simple-text">
                     Sample Bank
                 </a>
             </div>
