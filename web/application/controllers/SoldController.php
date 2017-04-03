@@ -52,7 +52,7 @@ class SoldController extends REST_Controller
         $this->response($apiResponse, $httpCode);
     }
 
-    public function getsSold_get()
+    public function getSold_get()
     {
 
     }
