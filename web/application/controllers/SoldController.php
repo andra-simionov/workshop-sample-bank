@@ -16,14 +16,14 @@ class SoldController extends REST_Controller
         $this->load->library('RequestValidator');
         $this->load->library('RequestProcessor');
     }
-    
-    public function sold_post()
+
+    public function pay_post()
     {
         $postData = $this->post();
         $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
 
         try {
-            $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_REQUEST_KEYS);
+            $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_PAY_REQUEST_KEYS);
 
             $email = $postData['email'];
 
@@ -50,5 +50,10 @@ class SoldController extends REST_Controller
         }
 
         $this->response($apiResponse, $httpCode);
+    }
+
+    public function getsSold_get()
+    {
+
     }
  }
