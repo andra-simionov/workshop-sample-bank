@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
+
 class RegisterForm extends CI_Controller
 {
     function index()
@@ -9,18 +13,15 @@ class RegisterForm extends CI_Controller
         $this->load->helper(['form', 'url']);
         $this->load->library('Smartyci');
         $this->load->library('form_validation');
+        $this->load->library('session');
+
+        $this->smartyci->setCompileCheck(false);
+
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
+        $email = $this->input->post('email');
 
         $config =  [
-            [
-                'field'   => 'firstname',
-                'label'   => 'Firstname',
-                'rules'   => 'trim|required'
-            ],
-            [
-                'field'   => 'lastname',
-                'label'   => 'Lastname',
-                'rules'   => 'trim|required'
-            ],
             [
                 'field'   => 'username',
                 'label'   => 'Username',
@@ -37,25 +38,20 @@ class RegisterForm extends CI_Controller
                 'rules'   => 'trim|required|min_length[5]'
             ],
 
-
         ];
 
         $this->form_validation->set_rules($config);
 
         if ($this->form_validation->run() == TRUE) {
 
-            $userData = [
-                'FirstName' => $this->input->post('firstname'),
-                'LastName' => $this->input->post('lastname'),
-                'Username' => $this->input->post('username'),
-                'Email' => $this->input->post('email'),
-                'Password' => $this->input->post('password'),
-            ];
+            if ($this->UserDataModel->emailAlreadyExists($email)) {
+                $this->smartyci->assign("error", "Email already exists");
+                $this->smartyci->display('RegisterErrorView.tpl');
+            }
 
-            $this->UserDataModel->registerUser($userData);
+            $this->UserDataModel->registerUser($username, $password, $email);
         }
 
-        $smartyci = new Smartyci();
-        $smartyci->display('RegisterSuccess.tpl');
+        $this->smartyci->display('RegisterSuccessView.tpl');
     }
 }

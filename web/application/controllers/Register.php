@@ -1,6 +1,10 @@
 <?php
 
-class RegisterPage extends CI_Controller
+if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
+
+class Register extends CI_Controller
 {
     function index()
     {

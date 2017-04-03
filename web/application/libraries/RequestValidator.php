@@ -43,7 +43,6 @@ class RequestValidator
             if (!isset($requestData[$key])) {
                 throw new Exception("Parameter '$value' is missing");
             }
-
         }
     }
 
