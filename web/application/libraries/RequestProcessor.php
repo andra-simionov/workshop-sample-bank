@@ -30,6 +30,6 @@ class RequestProcessor
      */
     public function processGetSoldRequest($email)
     {
-        $this->ci->CardDataModel->getUserSoldByEmail($email);
+        return $this->ci->CardDataModel->getUserSoldByEmail($email);
     }
 }
