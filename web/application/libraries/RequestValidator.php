@@ -8,7 +8,7 @@ class RequestValidator
 {
     private $ci;
 
-    const REQUIRED_REQUEST_KEYS = [
+    const REQUIRED_PAY_REQUEST_KEYS = [
         'timestamp',
         'requestId',
         'email',
@@ -16,8 +16,14 @@ class RequestValidator
             'amount',
             'currency',
             'reference',
-            ],
-        ];
+        ],
+    ];
+
+    const REQUIRED_GET_SOLD_REQUEST_KEYS = [
+        'timestamp',
+        'requestId',
+        'email',
+    ];
 
     public function __construct()
     {

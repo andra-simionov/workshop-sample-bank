@@ -6,19 +6,30 @@ if (! defined('BASEPATH')) {
 
 class RequestProcessor
 {
+    public function __construct()
+    {
+        $this->ci = & get_instance();
+        $this->ci->load->model('RequestValidatorModel');
+        $this->ci->load->model('CardDataModel');
+    }
+
     /**
      * @param $email
      * @param $requestAmount
      */
-    public function processRequest($email, $requestAmount)
+    public function processPayRequest($email, $requestAmount)
     {
-        $ci = & get_instance();
-        $ci->load->model('RequestProcessorModel');
-        $ci->load->model('CardDataModel');
-
-        $originalAmount = $ci->CardDataModel->getUserSoldByEmail($email);
+        $originalAmount = $this->ci->CardDataModel->getUserSoldByEmail($email);
         $updatedAmount = $originalAmount - $requestAmount;
 
-        $ci->RequestProcessorModel->updateSold($email, $updatedAmount);
+        $this->ci->RequestProcessorModel->updateSold($email, $updatedAmount);
+    }
+
+    /**
+     * @param $email
+     */
+    public function processGetSoldRequest($email)
+    {
+        $this->ci->CardDataModel->getUserSoldByEmail($email);
     }
 }

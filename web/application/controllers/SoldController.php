@@ -31,13 +31,14 @@ class SoldController extends REST_Controller
             $authCredentials['ClientId'] = $requestCredentials[0];
             $authCredentials['SecretKey'] = $requestCredentials[1];
 
+            $this->requestvalidator->validateRequestCredentials($email, $authCredentials);
+
             $requestAmount = $postData['orderData']['amount'];
             $requestCurrency = $postData['orderData']['currency'];
 
-            $this->requestvalidator->validateRequestCredentials($email, $authCredentials);
             $this->requestvalidator->validateOrderData($email, $requestAmount, $requestCurrency);
 
-            $this->requestprocessor->processRequest($email, $requestAmount);
+            $this->requestprocessor->processPayRequest($email, $requestAmount);
 
             $apiResponse['meta']['status'] = 'Ok';
             $apiResponse['meta']['message'] = 'Operation successful';
@@ -54,6 +55,31 @@ class SoldController extends REST_Controller
 
     public function getSold_get()
     {
+        $getData = $this->get();
 
+        try {
+            $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_SOLD_REQUEST_KEYS);
+
+            $email = $getData['email'];
+
+            $requestCredentials = explode(',', $this->head('Authorization'));
+            $authCredentials['ClientId'] = $requestCredentials[0];
+            $authCredentials['SecretKey'] = $requestCredentials[1];
+
+            $this->requestvalidator->validateRequestCredentials($email, $authCredentials);
+
+            $currentSold = $this->requestprocessor->processGetSoldRequest($email);
+
+            $apiResponse['meta']['status'] = 'Ok';
+            $apiResponse['meta']['message'] = 'Operation successful';
+            $apiResponse['orderData']['sold'] = $currentSold;
+            $httpCode = 200;
+
+        } catch (Exception $e) {
+            $apiResponse['meta']['status'] = 'Error';
+            $apiResponse['meta']['message'] = $e->getMessage();
+            $httpCode = 400;
+        }
+        $this->response($apiResponse, $httpCode);
     }
  }
