@@ -35,7 +35,7 @@ class RegisterForm extends CI_Controller
             [
                 'field'   => 'email',
                 'label'   => 'Email',
-                'rules'   => 'trim|required|min_length[5]'
+                'rules'   => 'trim|required|valid_email'
             ],
 
         ];
@@ -50,8 +50,9 @@ class RegisterForm extends CI_Controller
             }
 
             $this->UserDataModel->registerUser($username, $password, $email);
+            $this->smartyci->display('RegisterSuccessView.tpl');
+        } else {
+            $this->smartyci->display('RegisterView.tpl');
         }
-
-        $this->smartyci->display('RegisterSuccessView.tpl');
     }
 }

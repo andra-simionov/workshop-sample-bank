@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text">
                     <div class="description">
-                        <h1>Create a bank account</h1>
+                        <h1>Sign up</h1>
                     </div>
                 </div>
             </div>
@@ -70,10 +70,9 @@
                             <label class="sr-only" for="password">Password</label>
                             <input type="password" name="password"placeholder="Password..." class="form-password form-control" id="password">
                         </div>
-
-
-                        {validation_errors()}
-
+                        <div class="validation-error">
+                            {validation_errors()}
+                        </div>
                         <div class="submit">
                             <input type="submit" value="Submit" />
                         </div>
