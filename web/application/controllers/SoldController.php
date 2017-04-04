@@ -23,14 +23,13 @@ class SoldController extends REST_Controller
     public function pay_post()
     {
         $postData = $this->post();
-        $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
 
         try {
             $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_PAY_REQUEST_KEYS);
 
             $email = $postData['email'];
 
-            $this->checkApiAuthentification($this->head('Authorization'), $email);
+            $this->checkApiAuthentication($this->head('Authorization'), $email);
 
             $requestAmount = $postData['orderData']['amount'];
             $requestCurrency = $postData['orderData']['currency'];
@@ -49,20 +48,20 @@ class SoldController extends REST_Controller
             $httpCode = self::ERROR_HTTP_CODE;
         }
 
+        $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
         $this->response($apiResponse, $httpCode);
     }
 
     public function refund_post()
     {
         $postData = $this->post();
-        $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
 
         try {
             $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_REFUND_REQUEST_KEYS);
 
             $email = $postData['email'];
 
-            $this->checkApiAuthentification($this->head('Authorization'), $email);
+            $this->checkApiAuthentication($this->head('Authorization'), $email);
 
             $requestAmount = $postData['orderData']['amount'];
             $requestCurrency = $postData['orderData']['currency'];
@@ -80,6 +79,7 @@ class SoldController extends REST_Controller
             $httpCode = self::ERROR_HTTP_CODE;
         }
 
+        $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
         $this->response($apiResponse, $httpCode);
     }
 
@@ -92,7 +92,7 @@ class SoldController extends REST_Controller
 
             $email = $getData['email'];
 
-            $this->checkApiAuthentification($this->head('Authorization'), $email);
+            $this->checkApiAuthentication($this->head('Authorization'), $email);
 
             $currentSold = $this->requestprocessor->processGetSoldRequest($email);
 
@@ -118,7 +118,7 @@ class SoldController extends REST_Controller
 
             $email = $getData['email'];
 
-            $this->checkApiAuthentification($this->head('Authorization'), $email);
+            $this->checkApiAuthentication($this->head('Authorization'), $email);
 
             $cardData = $this->requestprocessor->processGetCardDataRequest($email);
 
@@ -138,7 +138,7 @@ class SoldController extends REST_Controller
      * @param string $authorizationHeader
      * @param string $email
      */
-    private function checkApiAuthentification($authorizationHeader, $email)
+    private function checkApiAuthentication($authorizationHeader, $email)
     {
         $requestCredentials = explode(',', $authorizationHeader);
         $authCredentials['ClientId'] = $requestCredentials[0];
