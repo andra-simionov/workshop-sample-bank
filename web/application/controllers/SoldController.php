@@ -35,7 +35,8 @@ class SoldController extends REST_Controller
             $requestAmount = $postData['orderData']['amount'];
             $requestCurrency = $postData['orderData']['currency'];
 
-            $this->requestvalidator->validateOrderData($email, $requestAmount, $requestCurrency);
+            $this->requestvalidator->validateAmount($email, $requestAmount);
+            $this->requestvalidator->validateCurrency($email, $requestCurrency);
 
             $this->requestprocessor->processPayRequest($email, $requestAmount);
 
@@ -44,7 +45,38 @@ class SoldController extends REST_Controller
             $httpCode = self::SUCCESS_HTTP_CODE;
 
         } catch (Exception $e) {
-            $this->getApiMetaResponseForError($e->getMessage());
+            $apiResponse = $this->getApiMetaResponseForError($e->getMessage());
+            $httpCode = self::ERROR_HTTP_CODE;
+        }
+
+        $this->response($apiResponse, $httpCode);
+    }
+
+    public function refund_post()
+    {
+        $postData = $this->post();
+        $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
+
+        try {
+            $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_REFUND_REQUEST_KEYS);
+
+            $email = $postData['email'];
+
+            $this->checkApiAuthentification($this->head('Authorization'), $email);
+
+            $requestAmount = $postData['orderData']['amount'];
+            $requestCurrency = $postData['orderData']['currency'];
+
+            $this->requestvalidator->validateCurrency($email, $requestCurrency);
+
+            $this->requestprocessor->processRefundRequest($email, $requestAmount);
+
+            $apiResponse = $this->getApiMetaResponseForSuccess();
+
+            $httpCode = self::SUCCESS_HTTP_CODE;
+
+        } catch (Exception $e) {
+            $apiResponse = $this->getApiMetaResponseForError($e->getMessage());
             $httpCode = self::ERROR_HTTP_CODE;
         }
 
@@ -70,7 +102,7 @@ class SoldController extends REST_Controller
             $httpCode = self::SUCCESS_HTTP_CODE;
 
         } catch (Exception $e) {
-            $this->getApiMetaResponseForError($e->getMessage());
+            $apiResponse = $this->getApiMetaResponseForError($e->getMessage());
             $httpCode = self::ERROR_HTTP_CODE;
         }
         $this->response($apiResponse, $httpCode);
