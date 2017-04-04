@@ -53,5 +53,6 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['(api/v1/pay)'] = 'SoldController/pay';
+$route['(api/v1/refund)'] = 'SoldController/refund';
 $route['(api/v1/getSold)'] = 'SoldController/getSold';
 $route['(api/v1/getCardData)'] = 'SoldController/getCardData';
