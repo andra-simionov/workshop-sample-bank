@@ -25,6 +25,14 @@ class RequestProcessor
         $this->ci->RequestProcessorModel->updateSold($email, $updatedAmount);
     }
 
+    public function processRefundRequest($email, $requestAmount)
+    {
+        $originalAmount = $this->ci->CardDataModel->getUserSoldByEmail($email);
+        $updatedAmount = $originalAmount + $requestAmount;
+
+        $this->ci->RequestProcessorModel->updateSold($email, $updatedAmount);
+    }
+
     /**
      * @param string $email
      */

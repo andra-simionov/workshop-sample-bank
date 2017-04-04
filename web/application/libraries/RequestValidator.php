@@ -19,6 +19,17 @@ class RequestValidator
         ],
     ];
 
+    const REQUIRED_REFUND_REQUEST_KEYS = [
+        'timestamp',
+        'requestId',
+        'email',
+        'orderData' => [
+            'amount',
+            'currency',
+            'reference',
+        ],
+    ];
+
     const REQUIRED_GET_SOLD_REQUEST_KEYS = [
         'timestamp',
         'requestId',
@@ -80,15 +91,22 @@ class RequestValidator
     /**
      * @param $email
      * @param $amount
-     * @param $currency
      * @throws Exception
      */
-    public function validateOrderData($email, $amount, $currency)
+    public function validateAmount($email, $amount)
     {
         if ($amount > $this->ci->CardDataModel->getUserSoldByEmail($email)) {
             throw new Exception('Insufficient funds!');
         }
+    }
 
+    /**
+     * @param $email
+     * @param $currency
+     * @throws Exception
+     */
+    public function validateCurrency($email, $currency)
+    {
         if ($currency !== $this->ci->CardDataModel->getUserSoldCurrencyByEmail($email)) {
             throw new Exception('Currency not supported!');
         }
