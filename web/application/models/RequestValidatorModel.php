@@ -18,7 +18,7 @@ class RequestValidatorModel extends CI_Model
         $result = $this->db->select('*')
             ->from('client_tokens')
             ->join('users', 'users.IdUser = client_tokens.IdUser')
-            ->join('stores', 'store.IdUser = client_tokens.IdUser')
+            ->join('stores', 'stores.IdStore = client_tokens.IdStore')
             ->where('users.Email', $email)
             ->where($userCredentials)
             ->where('client_tokens.ClientToken', $token)

@@ -97,11 +97,11 @@ class ApiController extends REST_Controller
 
             $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
-            $currentBalance = $this->requestprocessor->processGetSoldRequest($email);
+            $currentBalance = $this->requestprocessor->processGetBalanceRequest($email);
 
             $apiResponse = $this->getApiMetaResponseForSuccess();
 
-            $apiResponse['userData']['sold'] = $currentBalance;
+            $apiResponse['userData']['balance'] = $currentBalance;
             $httpCode = self::SUCCESS_HTTP_CODE;
 
         } catch (Exception $e) {
@@ -145,7 +145,7 @@ class ApiController extends REST_Controller
     private function checkApiAuthentication($authorizationHeader, $email, $token)
     {
         $requestCredentials = explode(',', $authorizationHeader);
-        $authCredentials['ClientId'] = $requestCredentials[0];
+        $authCredentials['StoreId'] = $requestCredentials[0];
         $authCredentials['SecretKey'] = $requestCredentials[1];
 
         $this->requestvalidator->validateRequestCredentials($email, $authCredentials, $token);
