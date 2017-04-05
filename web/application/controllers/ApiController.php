@@ -144,7 +144,9 @@ class ApiController extends REST_Controller
      */
     private function checkApiAuthentication($authorizationHeader, $email, $token)
     {
-        $requestCredentials = explode(',', $authorizationHeader);
+        $decryptedApiCredentials = base64_decode($authorizationHeader);
+        $requestCredentials = explode(',', $decryptedApiCredentials);
+
         $authCredentials['StoreId'] = $requestCredentials[0];
         $authCredentials['SecretKey'] = $requestCredentials[1];
 
