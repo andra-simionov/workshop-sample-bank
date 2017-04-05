@@ -28,8 +28,9 @@ class ApiController extends REST_Controller
             $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_PAY_REQUEST_KEYS);
 
             $email = $postData['email'];
+            $token = $postData['token'];
 
-            $this->checkApiAuthentication($this->head('Authorization'), $email);
+            $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             $requestAmount = $postData['orderData']['amount'];
             $requestCurrency = $postData['orderData']['currency'];
@@ -60,8 +61,9 @@ class ApiController extends REST_Controller
             $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_REFUND_REQUEST_KEYS);
 
             $email = $postData['email'];
+            $token = $postData['token'];
 
-            $this->checkApiAuthentication($this->head('Authorization'), $email);
+            $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             $requestAmount = $postData['orderData']['amount'];
             $requestCurrency = $postData['orderData']['currency'];
@@ -91,8 +93,9 @@ class ApiController extends REST_Controller
             $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_BALANCE_REQUEST_KEYS);
 
             $email = $getData['email'];
+            $token = $getData['token'];
 
-            $this->checkApiAuthentication($this->head('Authorization'), $email);
+            $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             $currentBalance = $this->requestprocessor->processGetSoldRequest($email);
 
@@ -117,8 +120,9 @@ class ApiController extends REST_Controller
             $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_CARD_DATA_REQUEST_KEYS);
 
             $email = $getData['email'];
+            $token = $getData['token'];
 
-            $this->checkApiAuthentication($this->head('Authorization'), $email);
+            $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             $cardData = $this->requestprocessor->processGetCardDataRequest($email);
 
@@ -138,13 +142,13 @@ class ApiController extends REST_Controller
      * @param string $authorizationHeader
      * @param string $email
      */
-    private function checkApiAuthentication($authorizationHeader, $email)
+    private function checkApiAuthentication($authorizationHeader, $email, $token)
     {
         $requestCredentials = explode(',', $authorizationHeader);
         $authCredentials['ClientId'] = $requestCredentials[0];
         $authCredentials['SecretKey'] = $requestCredentials[1];
 
-        $this->requestvalidator->validateRequestCredentials($email, $authCredentials);
+        $this->requestvalidator->validateRequestCredentials($email, $authCredentials, $token);
     }
 
     /**

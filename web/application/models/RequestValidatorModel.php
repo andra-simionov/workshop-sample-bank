@@ -8,14 +8,20 @@ class RequestValidatorModel extends CI_Model
     }
 
     /**
+     * @param $email
      * @param array $userCredentials
+     * @param $token
      * @return mixed
      */
-    public function checkUserCredentials(array $userCredentials)
+    public function checkUserCredentials($email, array $userCredentials, $token)
     {
         $result = $this->db->select('*')
-            ->from('user_credentials')
+            ->from('client_tokens')
+            ->join('users', 'users.IdUser = client_tokens.IdUser')
+            ->join('stores', 'store.IdUser = client_tokens.IdUser')
+            ->where('users.Email', $email)
             ->where($userCredentials)
+            ->where('client_tokens.ClientToken', $token)
             ->get()
             ->row_array();
 

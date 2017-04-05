@@ -12,6 +12,7 @@ class RequestValidator
         'timestamp',
         'requestId',
         'email',
+        'token',
         'orderData' => [
             'amount',
             'currency',
@@ -23,6 +24,7 @@ class RequestValidator
         'timestamp',
         'requestId',
         'email',
+        'token',
         'orderData' => [
             'amount',
             'currency',
@@ -34,6 +36,7 @@ class RequestValidator
         'timestamp',
         'requestId',
         'email',
+        'token',
     ];
 
 
@@ -41,6 +44,7 @@ class RequestValidator
         'timestamp',
         'requestId',
         'email',
+        'token',
     ];
 
     public function __construct()
@@ -77,14 +81,12 @@ class RequestValidator
      * @param $requestCredentials
      * @throws Exception
      */
-    public function validateRequestCredentials($email, $requestCredentials)
+    public function validateRequestCredentials($email, $requestCredentials, $token)
     {
-        $userCredentials = $this->ci->RequestValidatorModel->checkUserCredentials($requestCredentials);
+        $authCredentials = $this->ci->RequestValidatorModel->checkUserCredentials($email, $requestCredentials, $token);
 
-        if (empty($userCredentials)) {
-            throw new Exception('Authentication failed. Wrong user credentials.');
-        } elseif ($email !== $userCredentials['Email']) {
-            throw new Exception('Authentication failed. No user associated with the credentials.');
+        if (empty($authCredentials)) {
+            throw new Exception('Authentication failed');
         }
     }
 
