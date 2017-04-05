@@ -30,7 +30,7 @@ class RequestValidator
         ],
     ];
 
-    const REQUIRED_GET_SOLD_REQUEST_KEYS = [
+    const REQUIRED_GET_BALANCE_REQUEST_KEYS = [
         'timestamp',
         'requestId',
         'email',
@@ -95,7 +95,7 @@ class RequestValidator
      */
     public function validateAmount($email, $amount)
     {
-        if ($amount > $this->ci->CardDataModel->getUserSoldByEmail($email)) {
+        if ($amount > $this->ci->CardDataModel->getUserBalanceByEmail($email)) {
             throw new Exception('Insufficient funds!');
         }
     }
@@ -107,7 +107,7 @@ class RequestValidator
      */
     public function validateCurrency($email, $currency)
     {
-        if ($currency !== $this->ci->CardDataModel->getUserSoldCurrencyByEmail($email)) {
+        if ($currency !== $this->ci->CardDataModel->getUserBalanceCurrencyByEmail($email)) {
             throw new Exception('Currency not supported!');
         }
     }

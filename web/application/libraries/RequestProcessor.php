@@ -19,26 +19,26 @@ class RequestProcessor
      */
     public function processPayRequest($email, $requestAmount)
     {
-        $originalAmount = $this->ci->CardDataModel->getUserSoldByEmail($email);
+        $originalAmount = $this->ci->CardDataModel->getUserBalanceByEmail($email);
         $updatedAmount = $originalAmount - $requestAmount;
 
-        $this->ci->RequestProcessorModel->updateSold($email, $updatedAmount);
+        $this->ci->RequestProcessorModel->updateBalance($email, $updatedAmount);
     }
 
     public function processRefundRequest($email, $requestAmount)
     {
-        $originalAmount = $this->ci->CardDataModel->getUserSoldByEmail($email);
+        $originalAmount = $this->ci->CardDataModel->getUserBalanceByEmail($email);
         $updatedAmount = $originalAmount + $requestAmount;
 
-        $this->ci->RequestProcessorModel->updateSold($email, $updatedAmount);
+        $this->ci->RequestProcessorModel->updateBalance($email, $updatedAmount);
     }
 
     /**
      * @param string $email
      */
-    public function processGetSoldRequest($email)
+    public function processGetBalanceRequest($email)
     {
-        return $this->ci->CardDataModel->getUserSoldByEmail($email);
+        return $this->ci->CardDataModel->getUserBalanceByEmail($email);
     }
 
     /**

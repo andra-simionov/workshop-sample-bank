@@ -12,12 +12,12 @@ class RequestProcessorModel extends CI_Model
      * @param $amount
      * @return bool
      */
-    public function updateSold($email, $amount)
+    public function updateBalance($email, $amount)
     {
         $idCard = $this->getIdCardByEmail($email);
 
         $this->db->where('IdCreditCard', $idCard)
-            ->update('card_amounts', ['Sold' => $amount]);
+            ->update('card_amounts', ['Balance' => $amount]);
 
         return $this->db->affected_rows() > 0;
     }

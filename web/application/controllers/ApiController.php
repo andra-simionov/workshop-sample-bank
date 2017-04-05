@@ -8,7 +8,7 @@ use Restserver\Libraries\REST_Controller;
 
 require(APPPATH . 'libraries/REST_Controller.php');
 
-class SoldController extends REST_Controller
+class ApiController extends REST_Controller
 {
     const SUCCESS_HTTP_CODE = "200";
     const ERROR_HTTP_CODE = "400";
@@ -83,22 +83,22 @@ class SoldController extends REST_Controller
         $this->response($apiResponse, $httpCode);
     }
 
-    public function getSold_get()
+    public function getBalance_get()
     {
         $getData = $this->get();
 
         try {
-            $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_SOLD_REQUEST_KEYS);
+            $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_BALANCE_REQUEST_KEYS);
 
             $email = $getData['email'];
 
             $this->checkApiAuthentication($this->head('Authorization'), $email);
 
-            $currentSold = $this->requestprocessor->processGetSoldRequest($email);
+            $currentBalance = $this->requestprocessor->processGetSoldRequest($email);
 
             $apiResponse = $this->getApiMetaResponseForSuccess();
 
-            $apiResponse['userData']['sold'] = $currentSold;
+            $apiResponse['userData']['sold'] = $currentBalance;
             $httpCode = self::SUCCESS_HTTP_CODE;
 
         } catch (Exception $e) {

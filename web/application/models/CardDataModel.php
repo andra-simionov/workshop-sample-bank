@@ -56,9 +56,9 @@ class CardDataModel extends CI_Model
      * @param $email
      * @return int
      */
-    public function getUserSoldByEmail($email)
+    public function getUserBalanceByEmail($email)
     {
-        $result = $this->db->select(['Sold'])
+        $result = $this->db->select(['Balance'])
             ->from('card_amounts')
             ->join('credit_cards', 'card_amounts.IdCreditCard=credit_cards.IdCreditCard')
             ->join('users', 'users.IdUser=credit_cards.IdUser')
@@ -70,7 +70,7 @@ class CardDataModel extends CI_Model
             return 0;
         }
 
-        return $result['Sold'];
+        return $result['Balance'];
     }
 
 
@@ -101,7 +101,7 @@ class CardDataModel extends CI_Model
      * @param $email
      * @return mixed
      */
-    public function getUserSoldCurrencyByEmail($email)
+    public function getUserBalanceCurrencyByEmail($email)
     {
         $result = $this->db->select(['Currency'])
             ->from('card_amounts')

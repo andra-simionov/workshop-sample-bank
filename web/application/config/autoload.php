@@ -137,4 +137,5 @@ $autoload['model'] = [
     'UserDataModel',
     'RequestValidatorModel',
     'RequestProcessorModel',
+    'TokenModel',
     ];
