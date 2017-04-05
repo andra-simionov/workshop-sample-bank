@@ -8,10 +8,14 @@ INSERT INTO `credit_cards` (`IdUser`, `CardNumber`, `Cvv`, `ExpirationMonth`, `E
 VALUES (1, '4111111111111111', '123', '10', '2021', NOW()),
   (2, '4111111111111111', '456', '12', '2021', NOW());
 
-INSERT INTO `card_amounts` (`IdCreditCard`, `Sold`, `Currency`)
+INSERT INTO `card_amounts` (`IdCreditCard`, `Balance`, `Currency`)
 VALUES (1, 6000, 'RON'),
   (2, 6000, 'RON');
 
-INSERT INTO `user_credentials` (`ClientId`, `SecretKey`, `Email`, `AddDate`)
-VALUES ('Andra_ID19', 'Andra_TEST', 'andra@yahoo.com', NOW()),
-  ('Diana_ID10', 'Diana_TEST', 'diana@yahoo.com', NOW());
+INSERT INTO `stores` (`StoreName`, `StoreId`, `SecretKey`, `AddDate`)
+VALUES ('Emag', 'Emag_ID19', 'Emag_TEST', NOW()),
+  ('PC_Garage','PC_Garage_ID10', 'PC_Garage_TEST', NOW());
+
+INSERT INTO `client_tokens` (`IdUser`, `IdStore`, `ClientToken`, `AddDate`)
+VALUES (1, 1, '2da9a98c-4e87-4fe7-a4cb-842768118e09', NOW()),
+  (2,2, '2da9a98c-4e87-4fe7-a4cb-842768118e09', NOW());

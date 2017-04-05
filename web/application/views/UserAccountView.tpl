@@ -34,7 +34,7 @@
             </div>
             <ul class="nav">
                 <li class="active">
-                    <a href="#">
+                    <a href="">
                         <i class="ti-user"></i>
                         <p>User Profile</p>
                     </a>
@@ -90,15 +90,15 @@
                                     </div>
                                     <div class="col-xs-7">
                                         <div class="numbers">
-                                            <p>Total Sold</p>
-                                            {$totalSold}
+                                            <p>Balance</p>
+                                            {$balance}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="footer">
                                     <hr>
                                     <div class="stats">
-                                        Currency: {$soldCurrency}
+                                        Currency: {$balanceCurrency}
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                             <div class="content">
                                 {form_open(base_url('UserAccount/addCreditCard'))}
                                 <div class="row">
-                                    <div class="col-md-7">
+                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <label>Card number</label>
                                             <input type="text" class="form-control border-input" placeholder="Card No" id="cardno" name="cardno" value="{if $noOfCreditCards != 0}{$cardData['CardNumber']}{/if}">
@@ -145,14 +145,43 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-center">
+                                {if $noOfCreditCards == 0}
+                                <div class="text-left">
                                     <button type="submit" class="btn btn-info btn-fill btn-wd">{if $noOfCreditCards == 0}Add credit card{else}Update card data{/if}
                                     </button>
                                 </div>
-                                <div class="clearfix"></div>
+                                {/if}
+                                <div class="clearfix"></div><br/><br/>
                                 {form_close()}
                             </div>
                         </div>
+                    </div>
+                </div>
+                <!--   Client token section   -->
+                <div class=" card">
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-striped">
+                            <thead>
+                            <th>Id</th>
+                            <th>Store Name</th>
+                            <th>Client Token</th>
+                            <th>Operation</th>
+                            </thead>
+                            <tbody>
+                            {foreach $tokenData as $index => $input}
+                            <tr>
+                                <td>{$index }</td>
+                                <td>{$input['StoreName']}</td>
+                                <td>{$input['ClientToken']}</td>
+                                <td>
+                                    <button type="submit" class="btn btn-success btn-fill btn-wd" onclick="addClientToken({$input['IdStore']})">Generate Token
+                                    </button>
+                                </td>
+                            </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>
@@ -169,5 +198,6 @@
 
 <!--  Notifications Plugin    -->
 <script src="../../bankAssets/js/bootstrap-notify.js"></script>
+<script src="../../bankAssets/js/addClientToken.js"></script>
 
 </html>
