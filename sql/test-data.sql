@@ -13,7 +13,7 @@ VALUES (1, 6000, 'RON'),
   (2, 6000, 'RON');
 
 INSERT INTO `stores` (`StoreName`, `StoreId`, `SecretKey`, `AddDate`)
-VALUES ('Emag', 'Emag_ID19', 'Emag_TEST', NOW()),
+VALUES ('SampleStore', 'SampleStore_ID19', 'SampleStore_TEST', NOW()),
   ('PC_Garage','PC_Garage_ID10', 'PC_Garage_TEST', NOW());
 
 INSERT INTO `client_tokens` (`IdUser`, `IdStore`, `ClientToken`, `AddDate`)
