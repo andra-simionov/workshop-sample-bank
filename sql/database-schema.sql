@@ -26,7 +26,6 @@ CREATE TABLE IF NOT EXISTS `credit_cards` (
 	`ExpirationMonth` INT(2) NOT NULL,
 	`ExpirationYear` INT(4) NOT NULL,
 	`AddDate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-	`ChangeDate` DATETIME,
 	PRIMARY KEY (`IdCreditCard`)
 )
 COLLATE='utf8_general_ci'
@@ -39,7 +38,6 @@ CREATE TABLE IF NOT EXISTS `card_amounts` (
 	`Balance` INT(11) NOT NULL,
 	`Currency` VARCHAR(3) NOT NULL DEFAULT 'RON',
 	`AddDate`DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-	`ChangeDate` DATETIME,
 	PRIMARY KEY (`IdCardAmounts`)
 )
 	COLLATE='utf8_general_ci'
