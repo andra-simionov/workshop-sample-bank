@@ -88,7 +88,7 @@
                                                 <h5>Sign up using the registration form. After the form is submitted, you can log in your bank account.</h5>
                                             </li>
                                             <li>
-                                                <h5>After signing in, the user can add the card data: card number, expiration month and day and cvv. For didactic purposes, you can update your card data.</h5>
+                                                <h5>After signing in, the user can add the card data: card number, expiration month and day and cvv.</h5>
                                             </li>
                                             <li>
                                                 <h5>The communication between the Sample Store and the Sample Bank is made through an API.</h5>
