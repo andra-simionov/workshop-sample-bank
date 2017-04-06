@@ -84,8 +84,8 @@ class ApiController extends REST_Controller
         $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
         $this->response($apiResponse, $httpCode);
     }
-
-    public function getBalance_get()
+// TODO rename getBalance_get to balance_get
+    public function balance_get()
     {
         $getData = $this->get();
 
@@ -112,7 +112,7 @@ class ApiController extends REST_Controller
     }
 
 
-    public function getCardData_get()
+    public function cardData_get()
     {
         $getData = $this->get();
 

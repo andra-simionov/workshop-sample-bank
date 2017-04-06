@@ -54,5 +54,5 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['(api/v1/pay)'] = 'ApiController/pay';
 $route['(api/v1/refund)'] = 'ApiController/refund';
-$route['(api/v1/getBalance)'] = 'ApiController/getBalance';
-$route['(api/v1/getCardData)'] = 'ApiController/getCardData';
+$route['(api/v1/balance)'] = 'ApiController/balance';
+$route['(api/v1/cardData)'] = 'ApiController/cardData';
