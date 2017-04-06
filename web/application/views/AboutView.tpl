@@ -95,8 +95,8 @@
                                             </li>
                                         </ul>
                                     </div><br>
-                                <div class="typo-line" id="about">
-                                    <p class="category" id="api-documentation">Api Documentation</p>
+                                <div class="typo-line" id="api-documentation">
+                                    <p class="category">Api Documentation</p>
                                     <h5>The bank provides an v1.0 RESTful API using 2 HTTP verbs: GET and POST</h5>
                                 </div><br>
 
