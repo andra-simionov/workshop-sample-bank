@@ -15,7 +15,6 @@ class TokenModel extends CI_Model
     }
 
     /**
-     * @param $idUser
      * @return mixed
      */
     public function getTokenData()
