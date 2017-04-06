@@ -27,11 +27,19 @@ class UserAccount extends Base_Controller
 
         $userEmail = $this->userInfo->Email;
 
+        $stores = $this->TokenModel->getAllStores();
+        $tokens = $this->TokenModel->getTokenData($this->idUser);
+
+        foreach ($stores as $store) {
+           if (!array_key_exists($store['StoreName'], $tokens)) {
+               $tokens[$store['StoreName']] = '';
+           }
+        }
         $smartyci->assign('username', $this->userInfo->Username);
         $smartyci->assign('noOfCreditCards', $this->CardDataModel->getUserCardNo($this->idUser));
         $smartyci->assign('balanceCurrency', $this->CardDataModel->getUserBalanceCurrencyByEmail($userEmail));
         $smartyci->assign('balance', $this->CardDataModel->getUserBalanceByEmail($userEmail));
-        $smartyci->assign('tokenData', $this->TokenModel->getTokenData());
+        $smartyci->assign('tokens', $tokens);
 
         $cardData = $this->CardDataModel->getUserCards($this->idUser);
         $smartyci->assign('cardData', $cardData);
@@ -60,10 +68,10 @@ class UserAccount extends Base_Controller
     public function generateClientToken()
     {
         if ($this->input->post('action') == 'generateClientToken') {
-            $idStore = $this->input->post('idStore');
-            $clientToken['ClientToken'] = $this->generateUUID();
+            $storeName = $this->input->post('storeName');
+            $clientToken = $this->generateUUID();
 
-            $this->TokenModel->addClientToken($clientToken, $this->idUser, $idStore);
+            $this->TokenModel->addClientToken($clientToken, $this->idUser, $storeName);
         }
     }
 

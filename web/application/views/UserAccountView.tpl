@@ -162,19 +162,17 @@
                     <div class="content table-responsive table-full-width">
                         <table class="table table-striped">
                             <thead>
-                            <th>Id</th>
                             <th>Store Name</th>
                             <th>Client Token</th>
                             <th>Operation</th>
                             </thead>
                             <tbody>
-                            {foreach $tokenData as $index => $input}
+                            {foreach $tokens as $index => $input}
                             <tr>
-                                <td>{$index }</td>
-                                <td>{$input['StoreName']}</td>
-                                <td>{$input['ClientToken']}</td>
+                                <td>{$index}</td>
+                                <td>{$input}</td>
                                 <td>
-                                    <button type="submit" class="btn btn-success btn-fill btn-wd" onclick="addClientToken({$input['IdStore']})">Generate Token
+                                    <button type="submit" class="btn btn-success btn-fill btn-wd" onclick="addClientToken('{$index}')">Generate Token
                                     </button>
                                 </td>
                             </tr>
