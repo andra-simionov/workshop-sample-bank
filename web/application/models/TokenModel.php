@@ -26,7 +26,7 @@ class TokenModel extends CI_Model
             ->where('IdUser', $idUser)
             ->get()
             ->result_array();
-//var_dump($result);die();
+
         return $result;
     }
 
