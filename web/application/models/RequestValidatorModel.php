@@ -9,6 +9,21 @@ class RequestValidatorModel extends CI_Model
 
     /**
      * @param $email
+     * @return mixed
+     */
+    public function checkUserEmail($email)
+    {
+        $result = $this->db->select('*')
+            ->from('users')
+            ->where('users.Email', $email)
+            ->get()
+            ->row_array();
+
+        return $result;
+    }
+
+    /**
+     * @param $email
      * @param array $userCredentials
      * @param $token
      * @return mixed
