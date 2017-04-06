@@ -72,6 +72,9 @@
                                         <li>
                                             <a href="#how-does-it-work">How does it work</a>
                                         </li>
+                                        <li>
+                                            <a href="#api-documentation">Api Documentation</a>
+                                        </li>
                                     </ul>
                                 </div><br>
                                 <div class="typo-line" id="about">
@@ -92,6 +95,10 @@
                                             </li>
                                         </ul>
                                     </div><br>
+                                <div class="typo-line" id="about">
+                                    <p class="category" id="api-documentation">Api Documentation</p>
+                                    <h5>The bank provides an v1.0 RESTful API using 2 HTTP verbs: GET and POST</h5>
+                                </div><br>
                                 <div class="typo-line" id="api-balance-request-parameters">
                                     <p class="category">Request parameters</p>
                                 </div>
