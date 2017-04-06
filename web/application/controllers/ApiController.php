@@ -150,21 +150,6 @@ class ApiController extends REST_Controller
     }
 
     /**
-     * @param string $authorizationHeader
-     * @param string $email
-     */
-    private function checkApiAuthentication($authorizationHeader, $email, $token)
-    {
-        $decryptedApiCredentials = base64_decode($authorizationHeader);
-        $requestCredentials = explode(',', $decryptedApiCredentials);
-
-        $authCredentials['StoreId'] = $requestCredentials[0];
-        $authCredentials['SecretKey'] = $requestCredentials[1];
-
-        $this->requestvalidator->validateRequestCredentials($email, $authCredentials, $token);
-    }
-
-    /**
      * @return array
      */
     private function getApiMetaResponseForSuccess()
@@ -185,5 +170,26 @@ class ApiController extends REST_Controller
         $apiResponse['meta']['message'] = $errorMessage;
 
         return $apiResponse;
+    }
+
+    /**
+     * @param $authorizationHeader
+     * @param $email
+     * @param $token
+     * @throws Exception
+     */
+    private function checkApiAuthentication($authorizationHeader, $email, $token)
+    {
+        if (isset($authorizationHeader)) {
+            $decryptedApiCredentials = base64_decode($authorizationHeader);
+            $requestCredentials = explode(',', $decryptedApiCredentials);
+
+            $authCredentials['StoreId'] = $requestCredentials[0];
+            $authCredentials['SecretKey'] = $requestCredentials[1];
+
+            $this->requestvalidator->validateRequestCredentials($email, $authCredentials, $token);
+        }
+
+        throw new Exception("The 'Authorization' header is missing");
     }
  }
