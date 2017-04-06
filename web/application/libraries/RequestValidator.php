@@ -92,6 +92,17 @@ class RequestValidator
 
     /**
      * @param $email
+     * @throws Exception
+     */
+    public function validateRequestEmail($email)
+    {
+        if (!$this->ci->RequestValidatorModel->checkRequestEmail($email)) {
+            throw new Exception("No user with the email $email associated");
+        }
+    }
+
+    /**
+     * @param $email
      * @param $amount
      * @throws Exception
      */

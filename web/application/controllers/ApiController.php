@@ -30,6 +30,7 @@ class ApiController extends REST_Controller
             $email = $postData['email'];
             $token = $postData['token'];
 
+            $this->requestvalidator->validateRequestEmail($email);
             $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             $requestAmount = $postData['orderData']['amount'];
@@ -63,6 +64,7 @@ class ApiController extends REST_Controller
             $email = $postData['email'];
             $token = $postData['token'];
 
+            $this->requestvalidator->validateRequestEmail($email);
             $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             $requestAmount = $postData['orderData']['amount'];
@@ -95,6 +97,7 @@ class ApiController extends REST_Controller
             $email = $getData['email'];
             $token = $getData['token'];
 
+        //    $this->requestvalidator->validateRequestEmail($email);
             $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             $currentBalance = $this->requestprocessor->processGetBalanceRequest($email);
@@ -121,6 +124,7 @@ class ApiController extends REST_Controller
             $email = $getData['email'];
             $token = $getData['token'];
 
+            $this->requestvalidator->validateRequestEmail($email);
             $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             $cardData = $this->requestprocessor->processGetCardDataRequest($email);
