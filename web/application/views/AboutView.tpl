@@ -99,6 +99,7 @@
                                     <p class="category" id="api-documentation">Api Documentation</p>
                                     <h5>The bank provides an v1.0 RESTful API using 2 HTTP verbs: GET and POST</h5>
                                 </div><br>
+
                                 <div class="typo-line" id="api-balance-request-parameters">
                                     <p class="category">Request parameters</p>
                                 </div>
@@ -200,19 +201,171 @@
                                         </tr>
 
                                         <tr>
-                                            <td>400</td>
+                                            <td>400 BAD REQUEST</td>
                                             <td>No user associated with the sent token</td>
                                         </tr>
 
                                         <tr>
-                                            <td>400</td>
+                                            <td>400 BAD REQUEST</td>
                                             <td>Authentication failed</td>
                                         </tr>
 
 
                                         <tr>
-                                            <td>400</td>
+                                            <td>400 BAD REQUEST</td>
                                             <td>Parameter "nameOfTheParameter" is missing (where "nameOfTheParameter" is replaced with actual name of the parameter) </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+
+                                <div class="typo-line" id="api-balance-request-parameters">
+                                    <p class="category">Request parameters</p>
+                                </div>
+
+                                <div class="content table-responsive table-full-width">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <th>Parameter name</th>
+                                        <th>Type</th>
+                                        <th>Example</th>
+                                        <th>Description</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>requestId (mandatory)</td>
+                                            <td>unique identifier string - UUID</td>
+                                            <td>2da9a98c-4e87-4fe7-a4cb-842768118e09</td>
+                                            <td>Communication id</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>timestamp (mandatory)</td>
+                                            <td>string</td>
+                                            <td>2017-04-09 12:00</td>
+                                            <td>Time of sending the request</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>email (mandatory)</td>
+                                            <td>string</td>
+                                            <td>workshop@payu.ro</td>
+                                            <td>User identifier</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>token (mandatory)</td>
+                                            <td>unique identifier string - UUID</td>
+                                            <td>3af6b23j-4e87-4fe7-a4cb-842768118e09</td>
+                                            <td>User token</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>orderData.amount (mandatory)</td>
+                                            <td>double</td>
+                                            <td>12.32</td>
+                                            <td>Amount of the order</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>orderData.currency (mandatory)</td>
+                                            <td>string</td>
+                                            <td>RON</td>
+                                            <td>Currency of the order</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>orderData.reference (mandatory)</td>
+                                            <td>string</td>
+                                            <td>21343243</td>
+                                            <td>Order identifier, generated by the store</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+
+                                <div class="typo-line" id="api-balance-response-parameters">
+                                    <p class="category">Response parameters</p>
+                                </div>
+
+                                <div class="content table-responsive table-full-width">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <th>Response type</th>
+                                        <th>meta.status (mandatory)</th>
+                                        <th>meta.message (mandatory)</th>
+                                        <th>orderData.reference (mandatory)</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>SUCCESS</td>
+                                            <td>Ok</td>
+                                            <td>Operation successful</td>
+                                            <td>Order identifier, the one from request</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>ERROR</td>
+                                            <td>Error</td>
+                                            <td>Error message</td>
+                                            <td>Order identifier, the one from request</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <div class="typo-line" id="api-balance-error-messages">
+                                    <p class="category">Response messages</p>
+                                </div>
+
+                                <div class="content table-responsive table-full-width">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <th>Http code</th>
+                                        <th>Reason</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>200 SUCCESS </td>
+                                            <td>Operation successful</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>400 BAD REQUEST</td>
+                                            <td>No user associated with the sent email</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>400 BAD REQUEST</td>
+                                            <td>No user associated with the sent token</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>400 BAD REQUEST</td>
+                                            <td>Authentication failed</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>400 BAD REQUEST</td>
+                                            <td>Insufficient funds</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>400 BAD REQUEST</td>
+                                            <td>Currency not supported</td>
                                         </tr>
 
                                         </tbody>
