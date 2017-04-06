@@ -23,6 +23,23 @@ class RequestValidatorModel extends CI_Model
     }
 
     /**
+     * @param $token
+     * @param $email
+     * @return mixed
+     */
+    public function checkUserToken($token, $email)
+    {
+        $result = $this->db->select('*')
+            ->from('client_tokens')
+            ->join('users', 'users.IdUser = client_tokens.IdUser')
+            ->where(['client_tokens.ClientToken' => $token, 'users.Email' => $email])
+            ->get()
+            ->row_array();
+
+        return $result;
+    }
+
+    /**
      * @param $email
      * @param array $userCredentials
      * @param $token

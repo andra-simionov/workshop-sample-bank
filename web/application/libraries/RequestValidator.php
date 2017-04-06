@@ -78,6 +78,28 @@ class RequestValidator
 
     /**
      * @param $email
+     * @throws Exception
+     */
+    public function validateRequestEmail($email)
+    {
+        if (empty($this->ci->RequestValidatorModel->checkUserEmail($email))) {
+            throw new Exception("No user with the email: '$email' associated");
+        }
+    }
+
+    /**
+     * @param $token
+     * @throws Exception
+     */
+    public function validateUserToken($token, $email)
+    {
+        if (empty($this->ci->RequestValidatorModel->checkUserToken($token, $email))) {
+            throw new Exception("No user with the token: '$token' associated");
+        }
+    }
+
+    /**
+     * @param $email
      * @param $requestCredentials
      * @throws Exception
      */
@@ -87,17 +109,6 @@ class RequestValidator
 
         if (empty($authCredentials)) {
             throw new Exception('Authentication failed');
-        }
-    }
-
-    /**
-     * @param $email
-     * @throws Exception
-     */
-    public function validateRequestEmail($email)
-    {
-        if (!$this->ci->RequestValidatorModel->checkUserEmail($email)) {
-            throw new Exception("No user with the email $email associated");
         }
     }
 
