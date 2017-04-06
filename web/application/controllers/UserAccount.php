@@ -31,7 +31,7 @@ class UserAccount extends Base_Controller
         $smartyci->assign('noOfCreditCards', $this->CardDataModel->getUserCardNo($this->idUser));
         $smartyci->assign('balanceCurrency', $this->CardDataModel->getUserBalanceCurrencyByEmail($userEmail));
         $smartyci->assign('balance', $this->CardDataModel->getUserBalanceByEmail($userEmail));
-        $smartyci->assign('tokenData', $this->TokenModel->getTokenData($this->idUser));
+        $smartyci->assign('tokenData', $this->TokenModel->getTokenData());
 
         $cardData = $this->CardDataModel->getUserCards($this->idUser);
         $smartyci->assign('cardData', $cardData);

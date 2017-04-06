@@ -18,12 +18,11 @@ class TokenModel extends CI_Model
      * @param $idUser
      * @return mixed
      */
-    public function getTokenData($idUser)
+    public function getTokenData()
     {
         $result = $this->db->select(['client_tokens.IdStore', 'stores.StoreName', 'client_tokens.ClientToken'])
             ->from('client_tokens')
             ->join('stores', 'stores.IdStore = client_tokens.IdStore')
-            ->where('IdUser', $idUser)
             ->get()
             ->result_array();
 
