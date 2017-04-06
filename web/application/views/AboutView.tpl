@@ -58,45 +58,41 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="header">
-                                <h4 class="title">Paper Dashboard Headings</h4>
-                                <p class="category">Created using <a href="https://www.google.com/fonts/specimen/Muli">Muli</a> Font Family</p>
-                            </div>
-                            <div class="content">
+                            <div class="about-content">
 
                                 <div class="typo-line">
-                                    <h1><p class="category">Header 1</p>Paper Dashboard Heading </h1>
+                                    <h1>Welcome to Sample Bank</h1><br><br>
                                 </div>
+                                <div class="typo-line a-about">
+                                    <p class="category">Summary</p>
+                                    <ul>
+                                        <li>
+                                            <a href="#about">About</a>
+                                        </li>
+                                        <li>
+                                            <a href="#how-does-it-work">How does it work</a>
+                                        </li>
+                                    </ul>
+                                </div><br>
+                                <div class="typo-line" id="about">
+                                    <p class="category">About</p>
+                                    <h5>On this platform you can check your credit card information and balance.</h5>
+                                </div><br>
+                                    <div class="typo-line" id="how-does-it-work">
+                                        <p class="category">How does it work?</p>
+                                        <ul>
+                                            <li>
+                                                <h5>Sign up using the registration form. After the form is submitted, you can log in your bank account.</h5>
+                                            </li>
+                                            <li>
+                                                <h5>After signing in, the user can add the card data: card number, expiration month and day and cvv. For didactic purposes, you can update your card data.</h5>
+                                            </li>
+                                            <li>
+                                                <h5>The communication between the Sample Store and the Sample Bank is made through an API.</h5>
+                                            </li>
+                                        </ul>
+                                    </div><br>
 
-                                <div class="typo-line">
-                                    <h2><p class="category">Header 2</p>Paper Dashboard Heading </h2>
-                                </div>
-                                <div class="typo-line">
-                                    <h3><p class="category">Header 3</p>Paper Dashboard Heading </h3>
-                                </div>
-                                <div class="typo-line">
-                                    <h4><p class="category">Header 4</p>Paper Dashboard Heading </h4>
-                                </div>
-                                <div class="typo-line">
-                                    <h5><p class="category">Header 5</p>Paper Dashboard Heading </h5>
-                                </div>
-                                <div class="typo-line">
-                                    <h6><p class="category">Header 6</p>Paper Dashboard Heading </h6>
-                                </div>
-                                <div class="typo-line">
-                                    <p><span class="category">Paragraph</span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>
-                                </div>
-                                <div class="typo-line">
-                                    <p class="category">Quote</p>
-                                    <blockquote>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.
-                                        </p>
-                                        <small>
-                                            Steve Jobs, CEO Apple
-                                        </small>
-                                    </blockquote>
-                                </div>
 
                                 <div class="typo-line">
                                     <p class="category">Muted Text</p>
