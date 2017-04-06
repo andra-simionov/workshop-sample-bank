@@ -179,30 +179,40 @@
                                 </div>
 
                                 <div class="typo-line" id="api-balance-error-messages">
-                                    <p class="category">Error messages</p>
+                                    <p class="category">Response messages</p>
                                 </div>
 
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-striped">
                                         <thead>
-                                        <th>Response type</th>
-                                        <th>meta.status (mandatory)</th>
-                                        <th>meta.message (mandatory)</th>
-                                        <th>userData.balance (optional)</th>
+                                        <th>Http code</th>
+                                        <th>Reason</th>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>SUCCESS</td>
-                                            <td>Ok</td>
+                                            <td>200 SUCCESS </td>
                                             <td>Operation successful</td>
-                                            <td>Current balance of the user with email specified in request</td>
                                         </tr>
 
                                         <tr>
-                                            <td>ERROR</td>
-                                            <td>Error</td>
-                                            <td>Error message</td>
-                                            <td>will not be sent</td>
+                                            <td>400 BAD REQUEST</td>
+                                            <td>No user associated with the sent email</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>400</td>
+                                            <td>No user associated with the sent token</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>400</td>
+                                            <td>Authentication failed</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>400</td>
+                                            <td>Parameter "nameOfTheParameter" is missing (where "nameOfTheParameter" is replaced with actual name of the parameter) </td>
                                         </tr>
 
                                         </tbody>
