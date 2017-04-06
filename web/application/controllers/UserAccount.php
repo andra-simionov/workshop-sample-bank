@@ -51,7 +51,8 @@ class UserAccount extends Base_Controller
             'Cvv' => $this->input->post('cvv'),
         ];
 
-        $this->CardDataModel->addCardData($cardData, $this->idUser);
+        $idCard = $this->CardDataModel->addCardData($cardData, $this->idUser);
+        $this->CardDataModel->addSoldForCreditCard($idCard);
 
         redirect('UserAccount');
     }

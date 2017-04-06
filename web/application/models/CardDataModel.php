@@ -14,11 +14,17 @@ class CardDataModel extends CI_Model
             $this->db->insert('credit_cards', $data);
         }
 
-        $idCreditCard = $this->getIdCardByIdUser($idUser);
+        return $this->db->insert_id();
+    }
 
-        $data['ChangeDate'] = date('Y-m-d H:i:s');
-        $this->db->where('IdCreditCard', $idCreditCard)
-            ->update('credit_cards', $data);
+    public function addSoldForCreditCard($idCard)
+    {
+        $data = [
+            'IdCreditCard' => $idCard,
+            'Balance' => 6000,
+        ];
+
+        $this->db->insert('card_amounts', $data);
     }
 
     /**
