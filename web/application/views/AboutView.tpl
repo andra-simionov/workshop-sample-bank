@@ -92,40 +92,116 @@
                                             </li>
                                         </ul>
                                     </div><br>
-
-
-                                <div class="typo-line">
-                                    <p class="category">Muted Text</p>
-                                    <p class="text-muted">
-                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.
-                                    </p>
-                                </div>
-                                <div class="typo-line">
-                                    <!--
-                                     there are also "text-info", "text-success", "text-warning", "text-danger" clases for the text
-                                     -->
-                                    <p class="category">Coloured Text</p>
-                                    <p class="text-primary">
-                                        Text Primary - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                    <p class="text-info">
-                                        Text Info - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                    <p class="text-success">
-                                        Text Success - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                    <p class="text-warning">
-                                        Text Warning - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                    <p class="text-danger">
-                                        Text Danger - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
+                                <div class="typo-line" id="api-balance-request-parameters">
+                                    <p class="category">Request parameters</p>
                                 </div>
 
-                                <div class="typo-line">
-                                    <h2><p class="category">Small Tag</p>Header with small subtitle <br><small>".small" is a tag for the headers</small> </h2>
+                                <div class="content table-responsive table-full-width">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <th>Parameter name</th>
+                                        <th>Type</th>
+                                        <th>Example</th>
+                                        <th>Description</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>requestId (mandatory)</td>
+                                                <td>unique identifier string - UUID</td>
+                                                <td>2da9a98c-4e87-4fe7-a4cb-842768118e09</td>
+                                                <td>Communication id</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>timestamp (mandatory)</td>
+                                                <td>string</td>
+                                                <td>2017-04-09 12:00</td>
+                                                <td>Time of sending the request</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>email (mandatory)</td>
+                                                <td>string</td>
+                                                <td>workshop@payu.ro</td>
+                                                <td>User identifier</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>token (mandatory)</td>
+                                                <td>unique identifier string - UUID</td>
+                                                <td>3af6b23j-4e87-4fe7-a4cb-842768118e09</td>
+                                                <td>User token</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
                                 </div>
 
+
+                                <div class="typo-line" id="api-balance-response-parameters">
+                                    <p class="category">Response parameters</p>
+                                </div>
+
+                                <div class="content table-responsive table-full-width">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <th>Response type</th>
+                                        <th>meta.status (mandatory)</th>
+                                        <th>meta.message (mandatory)</th>
+                                        <th>userData.balance (optional)</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>SUCCESS</td>
+                                            <td>Ok</td>
+                                            <td>Operation successful</td>
+                                            <td>Current balance of the user with email specified in request</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>ERROR</td>
+                                            <td>Error</td>
+                                            <td>Error message</td>
+                                            <td>will not be sent</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <div class="typo-line" id="api-balance-error-messages">
+                                    <p class="category">Error messages</p>
+                                </div>
+
+                                <div class="content table-responsive table-full-width">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <th>Response type</th>
+                                        <th>meta.status (mandatory)</th>
+                                        <th>meta.message (mandatory)</th>
+                                        <th>userData.balance (optional)</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>SUCCESS</td>
+                                            <td>Ok</td>
+                                            <td>Operation successful</td>
+                                            <td>Current balance of the user with email specified in request</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>ERROR</td>
+                                            <td>Error</td>
+                                            <td>Error message</td>
+                                            <td>will not be sent</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
 
                             </div>
                         </div>
