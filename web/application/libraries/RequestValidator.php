@@ -91,7 +91,7 @@ class RequestValidator
      * @param $token
      * @throws Exception
      */
-    public function validateUserToken($token, $email)
+    public function validateRequestToken($token, $email)
     {
         if (empty($this->ci->RequestValidatorModel->checkUserToken($token, $email))) {
             throw new Exception("No user associated with the sent token");

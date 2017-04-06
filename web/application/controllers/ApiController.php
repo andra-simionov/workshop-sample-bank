@@ -31,7 +31,7 @@ class ApiController extends REST_Controller
             $token = $postData['token'];
 
             $this->requestvalidator->validateRequestEmail($email);
-            $this->requestvalidator->validateUserToken($token, $email);
+            $this->requestvalidator->validateRequestToken($token, $email);
 
             $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
@@ -67,7 +67,7 @@ class ApiController extends REST_Controller
             $token = $postData['token'];
 
             $this->requestvalidator->validateRequestEmail($email);
-            $this->requestvalidator->validateUserToken($token, $email);
+            $this->requestvalidator->validateRequestToken($token, $email);
 
             $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
@@ -102,7 +102,7 @@ class ApiController extends REST_Controller
             $token = $getData['token'];
 
             $this->requestvalidator->validateRequestEmail($email);
-            $this->requestvalidator->validateUserToken($token, $email);
+            $this->requestvalidator->validateRequestToken($token, $email);
 
             $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
@@ -131,7 +131,7 @@ class ApiController extends REST_Controller
             $token = $getData['token'];
 
             $this->requestvalidator->validateRequestEmail($email);
-            $this->requestvalidator->validateUserToken($token, $email);
+            $this->requestvalidator->validateRequestToken($token, $email);
 
             $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
@@ -188,8 +188,8 @@ class ApiController extends REST_Controller
             $authCredentials['SecretKey'] = $requestCredentials[1];
 
             $this->requestvalidator->validateRequestCredentials($email, $authCredentials, $token);
+        } else {
+            throw new Exception("The 'Authorization' header is missing");
         }
-
-        throw new Exception("The 'Authorization' header is missing");
     }
  }
