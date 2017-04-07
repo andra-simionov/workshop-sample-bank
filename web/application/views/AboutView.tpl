@@ -97,13 +97,19 @@
                                     </div><br>
                                 <div class="typo-line" id="api-documentation">
                                     <p class="category">Api Documentation</p>
-                                    <h5>The bank provides an v1.0 RESTful API using 2 HTTP verbs: GET and POST</h5>
-                                </div><br>
+                                    <h5>The bank provides an v1.0 RESTful API using 2 HTTP verbs: GET and POST.</h5>
+                                </div>
                                 <div class="typo-line">
-                                    <p class="category">GET endpoint</p>
-                                    <h5>GET/balance</h5>
+                                    <h4>User balance</h4>
                                 </div><br>
-
+                                <div class="typo-line" id="api-balance-request-parameters">
+                                    <p class="category">HTTP Verb</p>
+                                        <h5>GET</h5>
+                                </div>
+                                <div class="typo-line" id="api-balance-request-parameters">
+                                    <p class="category">Api Endpoint</p>
+                                        <h5>http://192.168.24.20/api/v1/balance</h5>
+                                </div>
                                 <div class="typo-line" id="api-balance-request-parameters">
                                     <p class="category">Request parameters</p>
                                 </div>
@@ -226,9 +232,16 @@
                                 </div>
 
                                 <div class="typo-line">
-                                    <p class="category">POST endpoint</p>
-                                    <h5>POST/pay</h5>
+                                    <h4>Pay order</h4>
                                 </div><br>
+                                <div class="typo-line" id="api-balance-request-parameters">
+                                    <p class="category">HTTP Verb</p>
+                                    <h5>POST</h5>
+                                </div>
+                                <div class="typo-line" id="api-balance-request-parameters">
+                                    <p class="category">Api Endpoint</p>
+                                    <h5>http://192.168.24.20/api/v1/pay</h5>
+                                </div>
 
                                 <div class="typo-line" id="api-balance-request-parameters">
                                     <p class="category">Request parameters</p>
