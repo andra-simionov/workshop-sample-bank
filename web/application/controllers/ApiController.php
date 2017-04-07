@@ -57,8 +57,19 @@ class ApiController extends REST_Controller
             $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_PAY_REQUEST_KEYS);
 
             $email = $postData['email'];
+            $token = $postData['token'];
+
+            $this->requestvalidator->validateRequestEmail($email);
+            $this->requestvalidator->validateRequestToken($token, $email);
+
+            $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             $requestAmount = $postData['orderData']['amount'];
+            $requestCurrency = $postData['orderData']['currency'];
+
+            $this->requestvalidator->validateAmount($email, $requestAmount);
+            $this->requestvalidator->validateCurrency($email, $requestCurrency);
+
 
             $this->requestprocessor->processPayRequest($email, $requestAmount);
 
