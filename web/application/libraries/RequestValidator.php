@@ -83,7 +83,7 @@ class RequestValidator
     public function validateRequestEmail($email)
     {
         if (empty($this->ci->RequestValidatorModel->checkUserEmail($email))) {
-            throw new Exception("No user associated with the sent token");
+            throw new Exception("No user associated with the sent email");
         }
     }
 
