@@ -66,9 +66,9 @@
                             <label class="sr-only" for="password">Password</label>
                             <input type="password" name="password" id="password" placeholder="Password..." class="form-control">
                         </div>
-
-                        {validation_errors()}
-
+                        <div class="validation-error">
+                            {validation_errors()}
+                        </div>
                         <div class="submit">
                             <input type="submit" value="Submit" />
                         </div>

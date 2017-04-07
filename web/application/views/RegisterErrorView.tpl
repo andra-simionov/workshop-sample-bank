@@ -59,14 +59,6 @@
 
                         {form_open('RegisterForm')}
                         <div class="form-group">
-                            <label class="sr-only" for="firstname">Firstname</label>
-                            <input type="text" name="firstname" placeholder="Firstname..." class="form-control" id="firstname">
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="lastname">Lastname</label>
-                            <input type="text" name="lastname" placeholder="Lastname..." class="form-control" id="lastname">
-                        </div>
-                        <div class="form-group">
                             <label class="sr-only" for="username">Username</label>
                             <input type="text" name="username" placeholder="Username..." class="form-control" id="username">
                         </div>
@@ -78,9 +70,9 @@
                             <label class="sr-only" for="password">Password</label>
                             <input type="password" name="password"placeholder="Password..." class="form-password form-control" id="password">
                         </div>
-
-                        {$error}
-
+                        <div class="validation-error">
+                            {$error}
+                        </div>
                         <div class="submit">
                             <input type="submit" value="Submit" />
                         </div>
