@@ -81,29 +81,35 @@
                                     <p class="category">About</p>
                                     <h5>On this platform you can check your credit card information and balance.</h5>
                                 </div><br>
-                                    <div class="typo-line" id="how-does-it-work">
-                                        <p class="category">How does it work?</p>
-                                        <ul>
-                                            <li>
-                                                <h5>Sign up using the registration form. After the form is submitted, you can log in your bank account.</h5>
-                                            </li>
-                                            <li>
-                                                <h5>After signing in, the user can add the card data: card number, expiration month and day and cvv.</h5>
-                                            </li>
-                                            <li>
-                                                <h5>The communication between the Sample Store and the Sample Bank is made through an API.</h5>
-                                            </li>
-                                        </ul>
-                                    </div><br>
+                                <div class="typo-line" id="how-does-it-work">
+                                    <p class="category">How does it work?</p>
+                                    <ul>
+                                        <li>
+                                            <h5>Sign up using the registration form. After the form is submitted, you can log in your bank account.</h5>
+                                        </li>
+                                        <li>
+                                            <h5>After signing in, the user can add the card data: card number, expiration month and day and cvv.</h5>
+                                        </li>
+                                        <li>
+                                            <h5>The communication between the Sample Store and the Sample Bank is made through an API.</h5>
+                                        </li>
+                                    </ul>
+                                </div><br>
                                 <div class="typo-line" id="api-documentation">
                                     <p class="category">Api Documentation</p>
-                                    <h5>The bank provides an v1.0 RESTful API using 2 HTTP verbs: GET and POST</h5>
-                                </div><br>
+                                    <h5>The bank provides an v1.0 RESTful API using 2 HTTP verbs: GET and POST.</h5>
+                                </div>
                                 <div class="typo-line">
-                                    <p class="category">GET endpoint</p>
-                                    <h5>GET/balance</h5>
+                                    <h4>User balance</h4>
                                 </div><br>
-
+                                <div class="typo-line" id="api-balance-request-parameters">
+                                    <p class="category">HTTP Verb</p>
+                                    <h5>GET</h5>
+                                </div>
+                                <div class="typo-line" id="api-balance-request-parameters">
+                                    <p class="category">Api Endpoint</p>
+                                    <h5>http://192.168.24.20/api/v1/balance</h5>
+                                </div>
                                 <div class="typo-line" id="api-balance-request-parameters">
                                     <p class="category">Request parameters</p>
                                 </div>
@@ -117,34 +123,34 @@
                                         <th>Description</th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>requestId (mandatory)</td>
-                                                <td>unique identifier string - UUID</td>
-                                                <td>2da9a98c-4e87-4fe7-a4cb-842768118e09</td>
-                                                <td>Communication id</td>
-                                            </tr>
+                                        <tr>
+                                            <td>requestId (mandatory)</td>
+                                            <td>unique identifier string - UUID</td>
+                                            <td>2da9a98c-4e87-4fe7-a4cb-842768118e09</td>
+                                            <td>Communication id</td>
+                                        </tr>
 
-                                            <tr>
-                                                <td>timestamp (mandatory)</td>
-                                                <td>string</td>
-                                                <td>2017-04-09 12:00</td>
-                                                <td>Time of sending the request</td>
-                                            </tr>
+                                        <tr>
+                                            <td>timestamp (mandatory)</td>
+                                            <td>string</td>
+                                            <td>2017-04-09 12:00</td>
+                                            <td>Time of sending the request</td>
+                                        </tr>
 
-                                            <tr>
-                                                <td>email (mandatory)</td>
-                                                <td>string</td>
-                                                <td>workshop@payu.ro</td>
-                                                <td>User identifier</td>
-                                            </tr>
+                                        <tr>
+                                            <td>email (mandatory)</td>
+                                            <td>string</td>
+                                            <td>workshop@payu.ro</td>
+                                            <td>User identifier</td>
+                                        </tr>
 
 
-                                            <tr>
-                                                <td>token (mandatory)</td>
-                                                <td>unique identifier string - UUID</td>
-                                                <td>3af6b23j-4e87-4fe7-a4cb-842768118e09</td>
-                                                <td>User token</td>
-                                            </tr>
+                                        <tr>
+                                            <td>token (mandatory)</td>
+                                            <td>unique identifier string - UUID</td>
+                                            <td>3af6b23j-4e87-4fe7-a4cb-842768118e09</td>
+                                            <td>User token</td>
+                                        </tr>
                                         </tbody>
                                     </table>
 
@@ -226,9 +232,16 @@
                                 </div>
 
                                 <div class="typo-line">
-                                    <p class="category">POST endpoint</p>
-                                    <h5>POST/pay</h5>
+                                    <h4>Pay order</h4>
                                 </div><br>
+                                <div class="typo-line" id="api-balance-request-parameters">
+                                    <p class="category">HTTP Verb</p>
+                                    <h5>POST</h5>
+                                </div>
+                                <div class="typo-line" id="api-balance-request-parameters">
+                                    <p class="category">Api Endpoint</p>
+                                    <h5>http://192.168.24.20/api/v1/pay</h5>
+                                </div>
 
                                 <div class="typo-line" id="api-balance-request-parameters">
                                     <p class="category">Request parameters</p>
