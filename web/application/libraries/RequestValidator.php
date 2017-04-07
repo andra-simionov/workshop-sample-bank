@@ -8,39 +8,7 @@ class RequestValidator
 {
     private $ci;
 
-    const REQUIRED_PAY_REQUEST_KEYS = [
-        'timestamp',
-        'requestId',
-        'email',
-        'token',
-        'orderData' => [
-            'amount',
-            'currency',
-            'reference',
-        ],
-    ];
-
-    const REQUIRED_REFUND_REQUEST_KEYS = [
-        'timestamp',
-        'requestId',
-        'email',
-        'token',
-        'orderData' => [
-            'amount',
-            'currency',
-            'reference',
-        ],
-    ];
-
     const REQUIRED_GET_BALANCE_REQUEST_KEYS = [
-        'timestamp',
-        'requestId',
-        'email',
-        'token',
-    ];
-
-
-    const REQUIRED_GET_CARD_DATA_REQUEST_KEYS = [
         'timestamp',
         'requestId',
         'email',
@@ -73,66 +41,6 @@ class RequestValidator
             if (!isset($requestData[$key])) {
                 throw new Exception("Parameter '$value' is missing");
             }
-        }
-    }
-
-    /**
-     * @param $email
-     * @throws Exception
-     */
-    public function validateRequestEmail($email)
-    {
-        if (empty($this->ci->RequestValidatorModel->checkUserEmail($email))) {
-            throw new Exception("No user associated with the sent email");
-        }
-    }
-
-    /**
-     * @param $token
-     * @throws Exception
-     */
-    public function validateRequestToken($token, $email)
-    {
-        if (empty($this->ci->RequestValidatorModel->checkUserToken($token, $email))) {
-            throw new Exception("No user associated with the sent token");
-        }
-    }
-
-    /**
-     * @param $email
-     * @param $requestCredentials
-     * @throws Exception
-     */
-    public function validateRequestCredentials($email, $requestCredentials, $token)
-    {
-        $authCredentials = $this->ci->RequestValidatorModel->checkUserCredentials($email, $requestCredentials, $token);
-
-        if (empty($authCredentials)) {
-            throw new Exception('Authentication failed');
-        }
-    }
-
-    /**
-     * @param $email
-     * @param $amount
-     * @throws Exception
-     */
-    public function validateAmount($email, $amount)
-    {
-        if ($amount > $this->ci->CardDataModel->getUserBalanceByEmail($email)) {
-            throw new Exception('Insufficient funds!');
-        }
-    }
-
-    /**
-     * @param $email
-     * @param $currency
-     * @throws Exception
-     */
-    public function validateCurrency($email, $currency)
-    {
-        if ($currency !== $this->ci->CardDataModel->getUserBalanceCurrencyByEmail($email)) {
-            throw new Exception('Currency not supported!');
         }
     }
 }

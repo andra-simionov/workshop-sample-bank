@@ -20,77 +20,6 @@ class ApiController extends REST_Controller
         $this->load->library('RequestProcessor');
     }
 
-    public function pay_post()
-    {
-        $postData = $this->post();
-
-        try {
-            $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_PAY_REQUEST_KEYS);
-
-            $email = $postData['email'];
-            $token = $postData['token'];
-
-            $this->requestvalidator->validateRequestEmail($email);
-            $this->requestvalidator->validateRequestToken($token, $email);
-
-            $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
-
-            $requestAmount = $postData['orderData']['amount'];
-            $requestCurrency = $postData['orderData']['currency'];
-
-            $this->requestvalidator->validateAmount($email, $requestAmount);
-            $this->requestvalidator->validateCurrency($email, $requestCurrency);
-
-            $this->requestprocessor->processPayRequest($email, $requestAmount);
-
-            $apiResponse = $this->getApiMetaResponseForSuccess();
-
-            $httpCode = self::SUCCESS_HTTP_CODE;
-
-        } catch (Exception $e) {
-            $apiResponse = $this->getApiMetaResponseForError($e->getMessage());
-            $httpCode = self::ERROR_HTTP_CODE;
-        }
-
-        $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
-        $this->response($apiResponse, $httpCode);
-    }
-
-    public function refund_post()
-    {
-        $postData = $this->post();
-
-        try {
-            $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_REFUND_REQUEST_KEYS);
-
-            $email = $postData['email'];
-            $token = $postData['token'];
-
-            $this->requestvalidator->validateRequestEmail($email);
-            $this->requestvalidator->validateRequestToken($token, $email);
-
-            $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
-
-            $requestAmount = $postData['orderData']['amount'];
-            $requestCurrency = $postData['orderData']['currency'];
-
-            $this->requestvalidator->validateCurrency($email, $requestCurrency);
-
-            $this->requestprocessor->processRefundRequest($email, $requestAmount);
-
-            $apiResponse = $this->getApiMetaResponseForSuccess();
-
-            $httpCode = self::SUCCESS_HTTP_CODE;
-
-        } catch (Exception $e) {
-            $apiResponse = $this->getApiMetaResponseForError($e->getMessage());
-            $httpCode = self::ERROR_HTTP_CODE;
-        }
-
-        $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
-        $this->response($apiResponse, $httpCode);
-    }
-
     public function balance_get()
     {
         $getData = $this->get();
@@ -99,12 +28,6 @@ class ApiController extends REST_Controller
             $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_BALANCE_REQUEST_KEYS);
 
             $email = $getData['email'];
-            $token = $getData['token'];
-
-            $this->requestvalidator->validateRequestEmail($email);
-            $this->requestvalidator->validateRequestToken($token, $email);
-
-            $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             $currentBalance = $this->requestprocessor->processGetBalanceRequest($email);
 
@@ -117,35 +40,6 @@ class ApiController extends REST_Controller
             $apiResponse = $this->getApiMetaResponseForError($e->getMessage());
             $httpCode = self::ERROR_HTTP_CODE;
         }
-        $this->response($apiResponse, $httpCode);
-    }
-
-    public function cardData_get()
-    {
-        $getData = $this->get();
-
-        try {
-            $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_CARD_DATA_REQUEST_KEYS);
-
-            $email = $getData['email'];
-            $token = $getData['token'];
-
-            $this->requestvalidator->validateRequestEmail($email);
-            $this->requestvalidator->validateRequestToken($token, $email);
-
-            $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
-
-            $cardData = $this->requestprocessor->processGetCardDataRequest($email);
-
-            $apiResponse = $this->getApiMetaResponseForSuccess();
-            $apiResponse['cardData'] = $cardData;
-            $httpCode = self::SUCCESS_HTTP_CODE;
-
-        } catch (Exception $e) {
-            $apiResponse = $this->getApiMetaResponseForError($e->getMessage());
-            $httpCode = self::ERROR_HTTP_CODE;
-        }
-
         $this->response($apiResponse, $httpCode);
     }
 
@@ -170,26 +64,5 @@ class ApiController extends REST_Controller
         $apiResponse['meta']['message'] = $errorMessage;
 
         return $apiResponse;
-    }
-
-    /**
-     * @param $authorizationHeader
-     * @param $email
-     * @param $token
-     * @throws Exception
-     */
-    private function checkApiAuthentication($authorizationHeader, $email, $token)
-    {
-        if (isset($authorizationHeader)) {
-            $decryptedApiCredentials = base64_decode($authorizationHeader);
-            $requestCredentials = explode(',', $decryptedApiCredentials);
-
-            $authCredentials['StoreId'] = $requestCredentials[0];
-            $authCredentials['SecretKey'] = $requestCredentials[1];
-
-            $this->requestvalidator->validateRequestCredentials($email, $authCredentials, $token);
-        } else {
-            throw new Exception("The 'Authorization' header is missing");
-        }
     }
  }
