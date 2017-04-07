@@ -15,44 +15,9 @@ class RequestProcessor
 
     /**
      * @param string $email
-     * @param int $requestAmount
-     */
-    public function processPayRequest($email, $requestAmount)
-    {
-        $originalAmount = $this->ci->CardDataModel->getUserBalanceByEmail($email);
-        $updatedAmount = $originalAmount - $requestAmount;
-
-        $this->ci->RequestProcessorModel->updateBalance($email, $updatedAmount);
-    }
-
-    public function processRefundRequest($email, $requestAmount)
-    {
-        $originalAmount = $this->ci->CardDataModel->getUserBalanceByEmail($email);
-        $updatedAmount = $originalAmount + $requestAmount;
-
-        $this->ci->RequestProcessorModel->updateBalance($email, $updatedAmount);
-    }
-
-    /**
-     * @param string $email
      */
     public function processGetBalanceRequest($email)
     {
         return $this->ci->CardDataModel->getUserBalanceByEmail($email);
-    }
-
-    /**
-     * @param string $email
-     * @return array
-     */
-    public function processGetCardDataRequest($email)
-    {
-        $cardData = $this->ci->CardDataModel->getCardDataByEmail($email);
-
-        return [
-            'ExpirationDate' => $cardData['ExpirationMonth'] . '/' . $cardData['ExpirationYear'],
-            'CardNumber' => $cardData['CardNumber'],
-            'Cvv' => $cardData['Cvv']
-        ];
     }
 }
