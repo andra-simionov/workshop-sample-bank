@@ -33,6 +33,8 @@ class ApiController extends REST_Controller
             $this->requestvalidator->validateRequestEmail($email);
             $this->requestvalidator->validateRequestToken($token, $email);
 
+            $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
+
             $currentBalance = $this->requestprocessor->processGetBalanceRequest($email);
 
             $apiResponse = $this->getApiMetaResponseForSuccess();
@@ -68,5 +70,26 @@ class ApiController extends REST_Controller
         $apiResponse['meta']['message'] = $errorMessage;
 
         return $apiResponse;
+    }
+
+    /**
+     * @param $authorizationHeader
+     * @param $email
+     * @param $token
+     * @throws Exception
+     */
+    private function checkApiAuthentication($authorizationHeader, $email, $token)
+    {
+        if (isset($authorizationHeader)) {
+            $decryptedApiCredentials = base64_decode($authorizationHeader);
+            $requestCredentials = explode(',', $decryptedApiCredentials);
+
+            $authCredentials['StoreId'] = $requestCredentials[0];
+            $authCredentials['SecretKey'] = $requestCredentials[1];
+
+            $this->requestvalidator->validateRequestCredentials($email, $authCredentials, $token);
+        } else {
+            throw new Exception("The 'Authorization' header is missing");
+        }
     }
  }
