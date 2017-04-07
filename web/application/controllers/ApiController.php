@@ -28,6 +28,10 @@ class ApiController extends REST_Controller
             $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_BALANCE_REQUEST_KEYS);
 
             $email = $getData['email'];
+            $token = $getData['token'];
+
+            $this->requestvalidator->validateRequestEmail($email);
+            $this->requestvalidator->validateRequestToken($token, $email);
 
             $currentBalance = $this->requestprocessor->processGetBalanceRequest($email);
 
