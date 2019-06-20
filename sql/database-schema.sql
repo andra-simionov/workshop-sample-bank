@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`Email` VARCHAR(50) NOT NULL DEFAULT '',
 	`Password` VARCHAR(50) NOT NULL DEFAULT '',
 	`ClientToken` VARCHAR(50) NOT NULL DEFAULT '',
-	`RegistrationDate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`RegistrationDate` DATETIME NOT NULL,
 	PRIMARY KEY (`IdUser`)
 )
 COLLATE='utf8_general_ci'
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `credit_cards` (
 	`Cvv` INT(4) NOT NULL,
 	`ExpirationMonth` INT(2) NOT NULL,
 	`ExpirationYear` INT(4) NOT NULL,
-	`AddDate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`AddDate` DATETIME NOT NULL,
 	PRIMARY KEY (`IdCreditCard`)
 )
 COLLATE='utf8_general_ci'
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `card_amounts` (
 	`IdCreditCard` INT(11) NOT NULL,
 	`Balance` INT(11) NOT NULL,
 	`Currency` VARCHAR(3) NOT NULL DEFAULT 'RON',
-	`AddDate`DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`AddDate`DATETIME NOT NULL,
 	PRIMARY KEY (`IdCardAmounts`)
 )
 	COLLATE='utf8_general_ci'
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `stores` (
 	`StoreName` VARCHAR(30) NOT NULL DEFAULT '',
 	`StoreId` VARCHAR(50) NOT NULL DEFAULT '',
 	`SecretKey` VARCHAR(50) NOT NULL DEFAULT '',
-	`AddDate`DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`AddDate`DATETIME NOT NULL,
 	PRIMARY KEY (`IdStore`)
 )
 	COLLATE='utf8_general_ci'
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `client_tokens` (
 	`IdUser` INT(11) NOT NULL,
 	`IdStore` INT(11) NOT NULL,
 	`ClientToken` VARCHAR(50) NOT NULL DEFAULT '',
-	`AddDate`DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`AddDate`DATETIME NOT NULL,
 	PRIMARY KEY (`IdClientTokens`)
 )
 	COLLATE='utf8_general_ci'
