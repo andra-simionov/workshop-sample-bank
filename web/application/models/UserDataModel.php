@@ -27,7 +27,6 @@ class UserDataModel extends CI_Model
 
     /**
      * @param array $data
-     *
      * @return bool
      */
     public function isUserRegistered(array $data)
@@ -50,7 +49,6 @@ class UserDataModel extends CI_Model
 
     /**
      * @param string $email
-     *
      * @return bool
      */
     public function emailAlreadyExists($email)
@@ -88,6 +86,10 @@ class UserDataModel extends CI_Model
         }
     }
 
+    /**
+     * @param int $idUser
+     * @return mixed
+     */
     public function getUserInfoByUserId($idUser)
     {
         $result = $this->db->select('*')
@@ -99,7 +101,7 @@ class UserDataModel extends CI_Model
     }
 
     /**
-     * @param $password
+     * @param string $password
      * @return string
      */
     public function hashPassword($password)
@@ -110,8 +112,8 @@ class UserDataModel extends CI_Model
     }
 
     /**
-     * @param $password
-     * @param $hashedPassword
+     * @param string $password
+     * @param string $hashedPassword
      * @return bool
      */
     public function checkPassword($password, $hashedPassword)

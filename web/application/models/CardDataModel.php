@@ -60,7 +60,7 @@ class CardDataModel extends CI_Model
     }
 
     /**
-     * @param $email
+     * @param string $email
      * @return int
      */
     public function getUserBalanceByEmail($email)

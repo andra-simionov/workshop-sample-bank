@@ -115,7 +115,9 @@
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label>Card number</label>
-                                            <input type="text" class="form-control border-input" placeholder="Card No" id="cardno" name="cardno" value="{if $noOfCreditCards != 0}{$cardData['CardNumber']}{/if}">
+                                            <input type="number" class="form-control border-input" placeholder="Card No" id="cardno" name="cardno"
+                                                   required
+                                                   value="{if $noOfCreditCards != 0}{$cardData['CardNumber']}{/if}">
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +125,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Expiration Month</label>
-                                            <input type="text" class="form-control border-input" placeholder="Expiration Month" id="expirationMonth"
+                                            <input type="number" class="form-control border-input" placeholder="Expiration Month" id="expirationMonth"
+                                                   min="1" max="12" required
                                                    name="expirationMonth" value="{if $noOfCreditCards != 0}{$cardData['ExpirationMonth']}{/if}">
                                         </div>
                                     </div>
@@ -132,7 +135,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Expiration Year</label>
-                                            <input type="text" class="form-control border-input" placeholder="Expiration Year" id="expirationYear"
+                                            <input type="number" class="form-control border-input" placeholder="Expiration Year" id="expirationYear"
+                                                   min="2019" max="2040" required
                                                    name="expirationYear" value="{if $noOfCreditCards != 0}{$cardData['ExpirationYear']}{/if}">
                                         </div>
                                     </div>
@@ -141,7 +145,9 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Cvv</label>
-                                            <input type="text" class="form-control border-input" placeholder="Cvv" id="cvv" name="cvv" value="{if $noOfCreditCards != 0}{$cardData['Cvv']}{/if}">
+                                            <input type="number" class="form-control border-input" placeholder="Cvv" id="cvv" name="cvv"
+                                                   required
+                                                   value="{if $noOfCreditCards != 0}{$cardData['Cvv']}{/if}">
                                         </div>
                                     </div>
                                 </div>

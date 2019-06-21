@@ -6,6 +6,9 @@ if (! defined('BASEPATH')) {
 
 class RequestProcessor
 {
+    /**
+     * RequestProcessor constructor.
+     */
     public function __construct()
     {
         $this->ci = & get_instance();
@@ -15,9 +18,10 @@ class RequestProcessor
 
     /**
      * @param string $email
+     * @return int
      */
     public function processGetBalanceRequest($email)
     {
-        return $this->ci->CardDataModel->getUserBalanceByEmail($email);
+        return (int)$this->ci->CardDataModel->getUserBalanceByEmail($email);
     }
 }
