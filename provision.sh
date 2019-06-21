@@ -2,8 +2,8 @@
 
 apache_config_file="/etc/apache2/envvars"
 apache_vhost_file="/etc/apache2/sites-available/vagrant_vhost.conf"
-php_config_file="/etc/php5/apache2/php.ini"
-xdebug_config_file="/etc/php5/mods-available/xdebug.ini"
+php_config_file="/etc/php/7.3/apache2/php.ini"
+xdebug_config_file="/etc/php/7.3/mods-available/xdebug.ini"
 mysql_config_file="/etc/mysql/my.cnf"
 default_apache_index="/var/www/html/index.html"
 project_web_root="web"
@@ -82,7 +82,7 @@ EOF
 }
 
 php_go() {
-	apt-get -y install php5.6 php5.6-mcrypt php5.6-mbstring php5.6-curl php5.6-cli php5.6-mysql php5.6-gd php5.6-intl php5.6-xsl php5.6-zip
+	apt-get -y install php7.3 php7.3-mbstring php7.3-curl php7.3-cli php7.3-mysql php7.3-gd php7.3-intl php7.3-xsl php7.3-zip php-xdebug
 
 	sed -i "s/display_startup_errors = Off/display_startup_errors = On/g" ${php_config_file}
 	sed -i "s/display_errors = Off/display_errors = On/g" ${php_config_file}
@@ -92,8 +92,8 @@ php_go() {
 zend_extension=xdebug.so
 xdebug.remote_enable=1
 xdebug.remote_connect_back=1
-xdebug.remote_port=9000
-xdebug.remote_host=10.0.2.2
+xdebug.remote_port=9001
+xdebug.remote_autostart=1
 EOF
 	fi
 

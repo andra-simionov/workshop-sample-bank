@@ -21,6 +21,8 @@ class ApiController extends REST_Controller
         parent::__construct();
         $this->load->library('RequestValidator');
         $this->load->library('RequestProcessor');
+        $this->load->library('AuthenticationException');
+        $this->load->library('RequestValidatorException');
     }
 
     public function balance_get()

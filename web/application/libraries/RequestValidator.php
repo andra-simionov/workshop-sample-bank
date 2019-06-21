@@ -35,6 +35,7 @@ class RequestValidator
         $this->ci = & get_instance();
         $this->ci->load->model('RequestValidatorModel');
         $this->ci->load->model('CardDataModel');
+		$this->ci->load->library('RequestValidatorException');
     }
 
     /**
