@@ -96,4 +96,28 @@ class RequestValidator
             throw new RequestValidatorException('Authentication failed due to invalid user credentials');
         }
     }
+
+    /**
+     * @param $email
+     * @param $amount
+     * @throws Exception
+     */
+    public function validateAmount($email, $amount)
+    {
+        if ($amount > $this->ci->CardDataModel->getUserBalanceByEmail($email)) {
+            throw new Exception('Insufficient funds!');
+        }
+    }
+
+    /**
+     * @param $email
+     * @param $currency
+     * @throws Exception
+     */
+    public function validateCurrency($email, $currency)
+    {
+        if ($currency !== $this->ci->CardDataModel->getUserBalanceCurrencyByEmail($email)) {
+            throw new Exception('Currency not supported!');
+        }
+    }
 }
