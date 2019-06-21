@@ -99,29 +99,7 @@ class RequestValidator
         }
     }
 
-    /**
-     * @param string $email
-     * @param int $amount
-     * @throws RequestValidatorException
-     */
-    public function validateAmount($email, $amount)
-    {
-        if ($amount > $this->ci->CardDataModel->getUserBalanceByEmail($email)) {
-            throw new RequestValidatorException('Insufficient funds!');
-        }
-    }
-
-    /**
-     * @param string $email
-     * @param string $currency
-     * @throws RequestValidatorException
-     */
-    public function validateCurrency($email, $currency)
-    {
-        if ($currency !== $this->ci->CardDataModel->getUserBalanceCurrencyByEmail($email)) {
-            throw new RequestValidatorException('Currency not supported!');
-        }
-    }
+	//TODO 7: add validations for currency and amount
 
     /**
      * @param string $authorizationHeader

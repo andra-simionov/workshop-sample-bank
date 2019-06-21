@@ -93,15 +93,9 @@ class CardDataModel extends CI_Model
      */
     public function getUserBalanceCurrencyByEmail($email)
     {
-        $result = $this->db->select(['Currency'])
-            ->from('card_amounts')
-            ->join('credit_cards', 'card_amounts.IdCreditCard=credit_cards.IdCreditCard')
-            ->join('users', 'users.IdUser=credit_cards.IdUser')
-            ->where('users.Email', (string)$email)
-            ->get()
-            ->row_array();
+        //TODO 7: read user's currency from database
 
-        return (string)$result['Currency'];
+        return '';
     }
 
 }
