@@ -69,4 +69,18 @@ class RequestValidator
             throw new RequestValidatorException("No user associated with the sent token");
         }
     }
+
+    /**
+     * @param $email
+     * @param $requestCredentials
+     * @throws Exception
+     */
+    public function validateRequestCredentials($email, $requestCredentials, $token)
+    {
+        $authCredentials = $this->ci->RequestValidatorModel->checkUserCredentials($email, $requestCredentials, $token);
+
+        if (empty($authCredentials)) {
+            throw new Exception('Authentication failed');
+        }
+    }
 }

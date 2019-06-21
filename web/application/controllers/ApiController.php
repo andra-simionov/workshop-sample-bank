@@ -35,12 +35,14 @@ class ApiController extends REST_Controller
             $this->requestvalidator->validateRequestEmail($email);
             $this->requestvalidator->validateRequestToken($token, $email);
 
+            $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
         } catch (RequestValidatorException $e) {
             $apiResponse = $this->setApiMetaResponseForError($e->getMessage());
             $httpCode = self::ERROR_HTTP_CODE;
 
             $this->response($apiResponse, $httpCode);
         }
+
 
         // Retrieve balance data from database for a specific user, based on it's email
         $currentBalance = $this->requestprocessor->processGetBalanceRequest($email);
@@ -76,5 +78,26 @@ class ApiController extends REST_Controller
         $apiResponse['meta']['message'] = $errorMessage;
 
         return $apiResponse;
+    }
+
+    /**
+     * @param $authorizationHeader
+     * @param $email
+     * @param $token
+     * @throws Exception
+     */
+    private function checkApiAuthentication($authorizationHeader, $email, $token)
+    {
+        if (isset($authorizationHeader)) {
+            $decryptedApiCredentials = base64_decode($authorizationHeader);
+            $requestCredentials = explode(',', $decryptedApiCredentials);
+
+            $authCredentials['StoreId'] = $requestCredentials[0];
+            $authCredentials['SecretKey'] = $requestCredentials[1];
+
+            $this->requestvalidator->validateRequestCredentials($email, $authCredentials, $token);
+        } else {
+            throw new Exception("The 'Authorization' header is missing");
+        }
     }
  }
