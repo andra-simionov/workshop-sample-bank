@@ -92,36 +92,7 @@ class ApiController extends REST_Controller
         $this->response($apiResponse, $httpCode);
     }
 
-    public function refund_post()
-    {
-        $postData = $this->post();
-        $email = $postData['email'];
-        $token = $postData['token'];
-
-        try {
-            $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_PAY_REQUEST_KEYS);
-            $this->requestvalidator->checkApiAuthentication($this->head('Authorization'), $email, $token);
-
-            $requestAmount = $postData['orderData']['amount'];
-            $requestCurrency = $postData['orderData']['currency'];
-
-            $this->requestvalidator->validateCurrency($email, $requestCurrency);
-
-            $this->requestprocessor->processRefundRequest($email, $requestAmount);
-
-            $apiResponse = $this->setApiMetaResponseForSuccess();
-
-            $httpCode = self::SUCCESS_HTTP_CODE;
-
-        } catch (RequestValidatorException $e) {
-            $apiResponse = $this->setApiMetaResponseForError($e->getMessage());
-            $httpCode = self::ERROR_HTTP_CODE;
-        }
-
-        // Use the same reference sent in the request to match the response of the API
-        $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
-        $this->response($apiResponse, $httpCode);
-    }
+    //TODO 9: create a refund method
 
     /**
      * @return array
