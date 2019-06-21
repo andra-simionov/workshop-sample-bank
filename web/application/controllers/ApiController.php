@@ -30,6 +30,13 @@ class ApiController extends REST_Controller
         // Validate if the GET request contains the required parameters
         try {
             $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_BALANCE_REQUEST_KEYS);
+
+            $token = $getData['token'];
+            $email = $getData['email'];
+
+            $this->requestvalidator->validateRequestEmail($email);
+            $this->requestvalidator->validateRequestToken($token, $email);
+
         } catch (RequestValidatorException $e) {
             $apiResponse = $this->setApiMetaResponseForError($e->getMessage());
             $httpCode = self::ERROR_HTTP_CODE;
@@ -37,9 +44,10 @@ class ApiController extends REST_Controller
             $this->response($apiResponse, $httpCode);
         }
 
-        $email = $getData['email'];
+
         // Retrieve balance data from database for a specific user, based on it's email
         $currentBalance = $this->requestprocessor->processGetBalanceRequest($email);
+
 
         // Set meta data + balance in the API response
         $apiResponse = $this->setBalanceApiResponseForSuccess($currentBalance);

@@ -46,4 +46,26 @@ class RequestValidator
             }
         }
     }
+
+    /**
+     * @param $email
+     * @throws Exception
+     */
+    public function validateRequestEmail($email)
+    {
+        if (empty($this->ci->RequestValidatorModel->checkUserEmail($email))) {
+            throw new Exception("No user associated with the sent email");
+        }
+    }
+
+    /**
+     * @param $token
+     * @throws Exception
+     */
+    public function validateRequestToken($token, $email)
+    {
+        if (empty($this->ci->RequestValidatorModel->checkUserToken($token, $email))) {
+            throw new Exception("No user associated with the sent token");
+        }
+    }
 }
