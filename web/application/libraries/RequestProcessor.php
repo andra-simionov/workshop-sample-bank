@@ -31,7 +31,7 @@ class RequestProcessor
      */
     public function processPayRequest($email, $requestAmount)
     {
-        $originalAmount = $this->ci->CardDataModel->getUserBalanceByEmail($email);
+        $originalAmount = (int)$this->ci->CardDataModel->getUserBalanceByEmail($email);
         $updatedAmount = $originalAmount - $requestAmount;
 
         $this->ci->RequestProcessorModel->updateBalance($email, $updatedAmount);

@@ -8,13 +8,13 @@ class RequestProcessorModel extends CI_Model
     }
 
     /**
-     * @param $email
-     * @param $amount
+     * @param string $email
+     * @param int $amount
      * @return bool
      */
     public function updateBalance($email, $amount)
     {
-        $idCard = $this->getIdCardByEmail($email);
+        $idCard = (int)$this->getIdCardByEmail($email);
 
         $this->db->where('IdCreditCard', $idCard)
             ->update('card_amounts', ['Balance' => $amount]);
@@ -23,8 +23,8 @@ class RequestProcessorModel extends CI_Model
     }
 
     /**
-     * @param $email
-     * @return mixed
+     * @param string $email
+     * @return int
      */
     private function getIdCardByEmail($email)
     {
@@ -35,6 +35,6 @@ class RequestProcessorModel extends CI_Model
             ->get()
             ->row_array();
 
-        return $idCard['IdCreditCard'];
+        return (int)$idCard['IdCreditCard'];
     }
 }

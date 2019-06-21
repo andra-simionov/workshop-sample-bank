@@ -38,11 +38,13 @@ class ApiController extends REST_Controller
             // Validate that the 'Authorization' header for API authentication is set correctly
             $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
-            // Retrieve balance data from database for a specific user, based on it's email
+            // Retrieve balance data from database for a specific user, based on its email
             $currentBalance = $this->requestprocessor->processGetBalanceRequest($email);
 
             // Set meta data + balance in the API response
-            $apiResponse = $this->setBalanceApiResponseForSuccess($currentBalance);
+            $apiResponse = $this->setApiMetaResponseForSuccess();
+            $apiResponse['userData']['balance'] = $currentBalance;
+
             $httpCode = self::SUCCESS_HTTP_CODE;
 
         } catch (RequestValidatorException $exception) {
@@ -60,39 +62,37 @@ class ApiController extends REST_Controller
     public function pay_post()
     {
         $postData = $this->post();
+        $email = $postData['email'];
+        $requestAmount = (int)$postData['orderData']['amount'];
 
         try {
             $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_PAY_REQUEST_KEYS);
 
-            $email = $postData['email'];
-
-            $requestAmount = $postData['orderData']['amount'];
-
+            // Update the balance of the user based on its email
             $this->requestprocessor->processPayRequest($email, $requestAmount);
 
-            $apiResponse = $this->getApiMetaResponseForSuccess();
+            // Set meta data in the API response
+            $apiResponse = $this->setApiMetaResponseForSuccess();
 
             $httpCode = self::SUCCESS_HTTP_CODE;
 
-        } catch (Exception $e) {
-            $apiResponse = $this->getApiMetaResponseForError($e->getMessage());
+        } catch (RequestValidatorException $exception) {
+            $apiResponse = $this->setApiMetaResponseForError($exception->getMessage());
             $httpCode = self::ERROR_HTTP_CODE;
         }
 
+        // Use the same reference sent in the request to match the response of the API
         $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
         $this->response($apiResponse, $httpCode);
     }
 
     /**
-     * @param int $currentBalance
      * @return array
      */
-    private function setBalanceApiResponseForSuccess($currentBalance)
+    private function setApiMetaResponseForSuccess()
     {
         $apiResponse['meta']['status'] = 'Ok';
         $apiResponse['meta']['message'] = 'Operation successful';
-
-        $apiResponse['userData']['balance'] = $currentBalance;
 
         return $apiResponse;
     }
