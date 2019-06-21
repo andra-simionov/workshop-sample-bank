@@ -68,12 +68,14 @@ class ApiController extends REST_Controller
         $requestCurrency = $postData['orderData']['currency'];
 
         try {
+            // Validate if the POST request contains the required parameters
             $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_PAY_REQUEST_KEYS);
             $this->requestvalidator->validateRequestEmail($email);
             $this->requestvalidator->validateRequestToken($token, $email);
             $this->requestvalidator->validateAmount($email, $requestAmount);
             $this->requestvalidator->validateCurrency($email, $requestCurrency);
 
+            // Validate that the 'Authorization' header for API authentication is set correctly
             $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             // Update the balance of the user based on its email
@@ -85,6 +87,10 @@ class ApiController extends REST_Controller
             $httpCode = self::SUCCESS_HTTP_CODE;
 
         } catch (RequestValidatorException $exception) {
+            $apiResponse = $this->setApiMetaResponseForError($exception->getMessage());
+            $httpCode = self::ERROR_HTTP_CODE;
+
+        } catch (AuthenticationException $exception) {
             $apiResponse = $this->setApiMetaResponseForError($exception->getMessage());
             $httpCode = self::ERROR_HTTP_CODE;
         }

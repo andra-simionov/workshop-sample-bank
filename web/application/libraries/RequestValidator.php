@@ -98,26 +98,26 @@ class RequestValidator
     }
 
     /**
-     * @param $email
-     * @param $amount
-     * @throws Exception
+     * @param string $email
+     * @param int $amount
+     * @throws RequestValidatorException
      */
     public function validateAmount($email, $amount)
     {
         if ($amount > $this->ci->CardDataModel->getUserBalanceByEmail($email)) {
-            throw new Exception('Insufficient funds!');
+            throw new RequestValidatorException('Insufficient funds!');
         }
     }
 
     /**
-     * @param $email
-     * @param $currency
-     * @throws Exception
+     * @param string $email
+     * @param string $currency
+     * @throws RequestValidatorException
      */
     public function validateCurrency($email, $currency)
     {
         if ($currency !== $this->ci->CardDataModel->getUserBalanceCurrencyByEmail($email)) {
-            throw new Exception('Currency not supported!');
+            throw new RequestValidatorException('Currency not supported!');
         }
     }
 }

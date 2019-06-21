@@ -17,10 +17,13 @@ class CardDataModel extends CI_Model
         return $this->db->insert_id();
     }
 
+    /**
+     * @param int $idCard
+     */
     public function addSoldForCreditCard($idCard)
     {
         $data = [
-            'IdCreditCard' => $idCard,
+            'IdCreditCard' => (int)$idCard,
             'Balance' => 6000,
             'AddDate' => date('Y-m-d H:i:s'),
         ];
@@ -29,7 +32,7 @@ class CardDataModel extends CI_Model
     }
 
     /**
-     * @param $idUser
+     * @param int $idUser
      * @return int
      */
     public function getUserCardNo($idUser)
@@ -37,18 +40,22 @@ class CardDataModel extends CI_Model
         $result = $this->db->select('*')
             ->from('credit_cards')
             ->join('users', 'users.IdUser = credit_cards.IdUser', 'inner')
-            ->where('users.IdUser', $idUser)
+            ->where('users.IdUser', (int)$idUser)
             ->get()
             ->result_array();
 
         return count($result);
     }
 
+    /**
+     * @param int $idUser
+     * @return array
+     */
     public function getUserCards($idUser)
     {
         $result = $this->db->select(['CardNumber', 'Cvv', 'ExpirationMonth', 'ExpirationYear'])
             ->from('credit_cards')
-            ->where('IdUser', $idUser)
+            ->where('IdUser', (int)$idUser)
             ->get()
             ->result_array();
 
@@ -69,7 +76,7 @@ class CardDataModel extends CI_Model
             ->from('card_amounts')
             ->join('credit_cards', 'card_amounts.IdCreditCard=credit_cards.IdCreditCard')
             ->join('users', 'users.IdUser=credit_cards.IdUser')
-            ->where('users.Email', $email)
+            ->where('users.Email', (string)$email)
             ->get()
             ->row_array();
 
@@ -77,36 +84,12 @@ class CardDataModel extends CI_Model
             return 0;
         }
 
-        return $result['Balance'];
+        return (int)$result['Balance'];
     }
-
 
     /**
      * @param string $email
-     * @return array
-     *
-     * @throws Exception
-     */
-    public function getCardDataByEmail($email)
-    {
-        $result = $this->db->select(['CardNumber', 'Cvv', 'ExpirationYear', 'ExpirationMonth'])
-            ->from('credit_cards')
-            ->join('users', 'users.IdUser=credit_cards.IdUser')
-            ->where('users.Email', $email)
-            ->get()
-            ->row_array();
-
-        if (empty($result)) {
-         //   throw new \Exception("Invalid email!");
-            return ['CardNumber' => '', 'Cvv' => '', 'ExpirationYear' => '', 'ExpirationMonth' => ''];
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param $email
-     * @return mixed
+     * @return string
      */
     public function getUserBalanceCurrencyByEmail($email)
     {
@@ -114,26 +97,10 @@ class CardDataModel extends CI_Model
             ->from('card_amounts')
             ->join('credit_cards', 'card_amounts.IdCreditCard=credit_cards.IdCreditCard')
             ->join('users', 'users.IdUser=credit_cards.IdUser')
-            ->where('users.Email', $email)
+            ->where('users.Email', (string)$email)
             ->get()
             ->row_array();
 
-        return $result['Currency'];
-    }
-
-    /**
-     * @param $idUser
-     * @return mixed
-     */
-    private function getIdCardByIdUser($idUser)
-    {
-        $idCard = $this->db->select('IdCreditCard')
-            ->from('credit_cards')
-            ->join('users', 'users.IdUser=credit_cards.IdUser')
-            ->where('users.IdUser', $idUser)
-            ->get()
-            ->row_array();
-
-        return $idCard['IdCreditCard'];
+        return (string)$result['Currency'];
     }
 }
