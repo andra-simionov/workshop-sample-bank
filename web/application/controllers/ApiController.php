@@ -30,10 +30,7 @@ class ApiController extends REST_Controller
         $email = $getData['email'];
 
         try {
-            // Validate if the GET request contains the required parameters
-            $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_BALANCE_REQUEST_KEYS);
-            $this->requestvalidator->validateRequestEmail($email);
-            $this->requestvalidator->validateRequestToken($token, $email);
+            //TODO 1: Validate if the GET request contains the required parameters
 
             // Validate that the 'Authorization' header for API authentication is set correctly
             $this->requestvalidator->checkApiAuthentication($this->head('Authorization'), $email, $token);
@@ -45,14 +42,12 @@ class ApiController extends REST_Controller
             $apiResponse = $this->setApiMetaResponseForSuccess();
             $apiResponse['userData']['balance'] = $currentBalance;
 
-            $httpCode = self::SUCCESS_HTTP_CODE;
-
         } catch (RequestValidatorException $exception) {
             $apiResponse = $this->setApiMetaResponseForError($exception->getMessage());
-            $httpCode = self::ERROR_HTTP_CODE;
         }
 
-        $this->response($apiResponse, $httpCode);
+        //TODO 1: let's send an appropriate HTTP code for our response
+        $this->response($apiResponse);
     }
 
     public function pay_post()
