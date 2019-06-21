@@ -149,7 +149,7 @@
                                             <td>token (mandatory)</td>
                                             <td>unique identifier string - UUID</td>
                                             <td>3af6b23j-4e87-4fe7-a4cb-842768118e09</td>
-                                            <td>User token</td>
+                                            <td>User token used to match the user with a store</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -282,7 +282,7 @@
                                             <td>token (mandatory)</td>
                                             <td>unique identifier string - UUID</td>
                                             <td>3af6b23j-4e87-4fe7-a4cb-842768118e09</td>
-                                            <td>User token</td>
+                                            <td>User token used to match the user with a store</td>
                                         </tr>
 
 
