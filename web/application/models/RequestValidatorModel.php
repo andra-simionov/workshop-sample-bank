@@ -8,8 +8,8 @@ class RequestValidatorModel extends CI_Model
     }
 
     /**
-     * @param $email
-     * @return mixed
+     * @param string $email
+     * @return array
      */
     public function checkUserEmail($email)
     {
@@ -23,9 +23,9 @@ class RequestValidatorModel extends CI_Model
     }
 
     /**
-     * @param $token
-     * @param $email
-     * @return mixed
+     * @param string $token
+     * @param string $email
+     * @return array
      */
     public function checkUserToken($token, $email)
     {
