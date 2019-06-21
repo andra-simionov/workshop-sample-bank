@@ -28,8 +28,8 @@
     <div class="sidebar" data-background-color="white" data-active-color="danger">
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a class="simple-text">
-                    Sample Bank
+                <a href="{site_url('About')}" class="doc">
+                   Sample Bank
                 </a>
             </div>
             <ul class="nav">
