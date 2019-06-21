@@ -99,7 +99,7 @@ class ApiController extends REST_Controller
         $token = $postData['token'];
 
         try {
-            $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_REFUND_REQUEST_KEYS);
+            $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_PAY_REQUEST_KEYS);
             $this->requestvalidator->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             $requestAmount = $postData['orderData']['amount'];
