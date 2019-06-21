@@ -7,20 +7,7 @@ class RequestProcessorModel extends CI_Model
         parent::__construct();
     }
 
-    /**
-     * @param string $email
-     * @param int $amount
-     * @return bool
-     */
-    public function updateBalance($email, $amount)
-    {
-        $idCard = (int)$this->getIdCardByEmail($email);
-
-        $this->db->where('IdCreditCard', $idCard)
-            ->update('card_amounts', ['Balance' => $amount]);
-
-        return $this->db->affected_rows() > 0;
-    }
+    //TODO 6: we might need here a method to update the balance
 
     /**
      * @param string $email

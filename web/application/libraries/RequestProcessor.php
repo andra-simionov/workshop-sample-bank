@@ -31,10 +31,7 @@ class RequestProcessor
 	 */
 	public function processPayRequest($email, $requestAmount)
 	{
-		$originalAmount = (int)$this->ci->CardDataModel->getUserBalanceByEmail($email);
-		$updatedAmount = $originalAmount - $requestAmount;
-
-		$this->ci->RequestProcessorModel->updateBalance($email, $updatedAmount);
+		//TODO 6: what's the new balance? whou should save it in the database?
 	}
 
 	public function processRefundRequest($email, $requestAmount)

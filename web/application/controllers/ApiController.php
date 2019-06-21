@@ -59,22 +59,19 @@ class ApiController extends REST_Controller
     {
         $postData = $this->post();
         $email = $postData['email'];
-        $requestAmount = (int)$postData['orderData']['amount'];
         $token = $postData['token'];
-        $requestCurrency = $postData['orderData']['currency'];
 
         try {
             // Validate if the POST request contains the required parameters
-            $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_PAY_REQUEST_KEYS);
-            $this->requestvalidator->validateRequestEmail($email);
-            $this->requestvalidator->validateRequestToken($token, $email);
+            //TODO 6: call RequestValidator, it might have something to say here
+
             //TODO 7: add validations for currency and amount
 
             // Validate that the 'Authorization' header for API authentication is set correctly
             $this->requestvalidator->checkApiAuthentication($this->head('Authorization'), $email, $token);
 
             // Update the balance of the user based on its email
-            $this->requestprocessor->processPayRequest($email, $requestAmount);
+            //TODO 6: call the RequestProcessor
 
             //TODO 8: Set meta data in the API response
 
