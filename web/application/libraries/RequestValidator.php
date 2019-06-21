@@ -8,6 +8,18 @@ class RequestValidator
 {
     private $ci;
 
+    const REQUIRED_PAY_REQUEST_KEYS = [
+        'timestamp',
+        'requestId',
+        'email',
+        'token',
+        'orderData' => [
+            'amount',
+            'currency',
+            'reference',
+        ],
+    ];
+
     const REQUIRED_GET_BALANCE_REQUEST_KEYS = [
         'timestamp',
         'requestId',

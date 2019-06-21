@@ -24,4 +24,16 @@ class RequestProcessor
     {
         return (int)$this->ci->CardDataModel->getUserBalanceByEmail($email);
     }
+
+    /**
+     * @param string $email
+     * @param int $requestAmount
+     */
+    public function processPayRequest($email, $requestAmount)
+    {
+        $originalAmount = $this->ci->CardDataModel->getUserBalanceByEmail($email);
+        $updatedAmount = $originalAmount - $requestAmount;
+
+        $this->ci->RequestProcessorModel->updateBalance($email, $updatedAmount);
+    }
 }

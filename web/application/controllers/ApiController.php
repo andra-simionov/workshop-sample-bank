@@ -59,7 +59,28 @@ class ApiController extends REST_Controller
 
     public function pay_post()
     {
+        $postData = $this->post();
 
+        try {
+            $this->requestvalidator->validateRequestStructure($postData, requestvalidator::REQUIRED_PAY_REQUEST_KEYS);
+
+            $email = $postData['email'];
+
+            $requestAmount = $postData['orderData']['amount'];
+
+            $this->requestprocessor->processPayRequest($email, $requestAmount);
+
+            $apiResponse = $this->getApiMetaResponseForSuccess();
+
+            $httpCode = self::SUCCESS_HTTP_CODE;
+
+        } catch (Exception $e) {
+            $apiResponse = $this->getApiMetaResponseForError($e->getMessage());
+            $httpCode = self::ERROR_HTTP_CODE;
+        }
+
+        $apiResponse['orderData']['reference'] = $postData['orderData']['reference'];
+        $this->response($apiResponse, $httpCode);
     }
 
     /**
