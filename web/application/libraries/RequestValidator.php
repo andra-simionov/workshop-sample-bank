@@ -71,16 +71,17 @@ class RequestValidator
     }
 
     /**
-     * @param $email
-     * @param $requestCredentials
-     * @throws Exception
+     * @param string $email
+     * @param array $requestCredentials
+     * @param string $token
+     * @throws RequestValidatorException
      */
     public function validateRequestCredentials($email, $requestCredentials, $token)
     {
         $authCredentials = $this->ci->RequestValidatorModel->checkUserCredentials($email, $requestCredentials, $token);
 
         if (empty($authCredentials)) {
-            throw new Exception('Authentication failed');
+            throw new RequestValidatorException('Authentication failed due to invalid user credentials');
         }
     }
 }

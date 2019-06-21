@@ -29,27 +29,30 @@ class ApiController extends REST_Controller
         $token = $getData['token'];
         $email = $getData['email'];
 
-        // Validate if the GET request contains the required parameters
         try {
+            // Validate if the GET request contains the required parameters
             $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_BALANCE_REQUEST_KEYS);
             $this->requestvalidator->validateRequestEmail($email);
             $this->requestvalidator->validateRequestToken($token, $email);
 
+            // Validate that the 'Authorization' header for API authentication is set correctly
             $this->checkApiAuthentication($this->head('Authorization'), $email, $token);
-        } catch (RequestValidatorException $e) {
-            $apiResponse = $this->setApiMetaResponseForError($e->getMessage());
+
+            // Retrieve balance data from database for a specific user, based on it's email
+            $currentBalance = $this->requestprocessor->processGetBalanceRequest($email);
+
+            // Set meta data + balance in the API response
+            $apiResponse = $this->setBalanceApiResponseForSuccess($currentBalance);
+            $httpCode = self::SUCCESS_HTTP_CODE;
+
+        } catch (RequestValidatorException $exception) {
+            $apiResponse = $this->setApiMetaResponseForError($exception->getMessage());
             $httpCode = self::ERROR_HTTP_CODE;
 
-            $this->response($apiResponse, $httpCode);
+        } catch (AuthenticationException $exception) {
+            $apiResponse = $this->setApiMetaResponseForError($exception->getMessage());
+            $httpCode = self::ERROR_HTTP_CODE;
         }
-
-
-        // Retrieve balance data from database for a specific user, based on it's email
-        $currentBalance = $this->requestprocessor->processGetBalanceRequest($email);
-
-        // Set meta data + balance in the API response
-        $apiResponse = $this->setBalanceApiResponseForSuccess($currentBalance);
-        $httpCode = self::SUCCESS_HTTP_CODE;
 
         $this->response($apiResponse, $httpCode);
     }
@@ -81,10 +84,10 @@ class ApiController extends REST_Controller
     }
 
     /**
-     * @param $authorizationHeader
-     * @param $email
-     * @param $token
-     * @throws Exception
+     * @param string $authorizationHeader
+     * @param string $email
+     * @param string $token
+     * @throws AuthenticationException
      */
     private function checkApiAuthentication($authorizationHeader, $email, $token)
     {
@@ -95,9 +98,13 @@ class ApiController extends REST_Controller
             $authCredentials['StoreId'] = $requestCredentials[0];
             $authCredentials['SecretKey'] = $requestCredentials[1];
 
-            $this->requestvalidator->validateRequestCredentials($email, $authCredentials, $token);
+            try {
+                $this->requestvalidator->validateRequestCredentials($email, $authCredentials, $token);
+            } catch (RequestValidatorException $exception) {
+                throw new AuthenticationException($exception->getMessage());
+            }
         } else {
-            throw new Exception("The 'Authorization' header is missing");
+            throw new AuthenticationException("The 'Authorization' header is missing");
         }
     }
  }

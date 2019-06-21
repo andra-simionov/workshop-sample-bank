@@ -40,10 +40,10 @@ class RequestValidatorModel extends CI_Model
     }
 
     /**
-     * @param $email
+     * @param string $email
      * @param array $userCredentials
-     * @param $token
-     * @return mixed
+     * @param string $token
+     * @return array
      */
     public function checkUserCredentials($email, array $userCredentials, $token)
     {
