@@ -77,10 +77,8 @@ class ApiController extends REST_Controller
             // Update the balance of the user based on its email
             $this->requestprocessor->processPayRequest($email, $requestAmount);
 
-            // Set meta data in the API response
-            $apiResponse = $this->setApiMetaResponseForSuccess();
+            //TODO 8: Set meta data in the API response
 
-            $httpCode = self::SUCCESS_HTTP_CODE;
 
         } catch (RequestValidatorException $exception) {
             $apiResponse = $this->setApiMetaResponseForError($exception->getMessage());
