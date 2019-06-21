@@ -39,7 +39,7 @@ class RequestProcessor
 
     public function processRefundRequest($email, $requestAmount)
     {
-        $originalAmount = $this->ci->CardDataModel->getUserSoldByEmail($email);
+        $originalAmount = $this->ci->CardDataModel->getUserBalanceByEmail($email);
         $updatedAmount = $originalAmount + $requestAmount;
 
         $this->ci->RequestProcessorModel->updateBalance($email, $updatedAmount);
