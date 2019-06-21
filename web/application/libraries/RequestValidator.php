@@ -92,9 +92,11 @@ class RequestValidator
      */
     public function validateRequestCredentials($email, $requestCredentials, $token)
     {
-        $authCredentials = $this->ci->RequestValidatorModel->checkUserCredentials($email, $requestCredentials, $token);
+		$authCredentials = null;
+		//TODO 2: call RequestValidatorModel, it might know something about $authCredentials
 
-        if (empty($authCredentials)) {
+
+		if (empty($authCredentials)) {
             throw new RequestValidatorException('Authentication failed due to invalid user credentials');
         }
     }
@@ -116,7 +118,7 @@ class RequestValidator
             $authCredentials['StoreId'] = $requestCredentials[0];
             $authCredentials['SecretKey'] = $requestCredentials[1];
 
-            $this->validateRequestCredentials($email, $authCredentials, $token);
+            //TODO 2: there's a method around here that can validate the credentials...
 
         } else {
             throw new RequestValidatorException("The 'Authorization' header is missing");
