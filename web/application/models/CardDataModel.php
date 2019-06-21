@@ -22,6 +22,7 @@ class CardDataModel extends CI_Model
         $data = [
             'IdCreditCard' => $idCard,
             'Balance' => 6000,
+            'AddDate' => date('Y-m-d H:i:s'),
         ];
 
         $this->db->insert('card_amounts', $data);

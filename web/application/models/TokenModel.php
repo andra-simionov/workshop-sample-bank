@@ -11,6 +11,7 @@ class TokenModel extends CI_Model
                 'IdUser' => $idUser,
                 'IdStore' => $idStore,
                 'ClientToken' => $clientToken,
+                'AddDate' => date('Y-m-d H:i:s'),
                 ];
 
             $this->db->insert('client_tokens', $dataToBeInserted);

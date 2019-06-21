@@ -8,9 +8,9 @@ INSERT INTO `credit_cards` (`IdUser`, `CardNumber`, `Cvv`, `ExpirationMonth`, `E
 VALUES (1, '4111111111111111', '123', '10', '2021', NOW()),
   (2, '4111111111111111', '456', '12', '2021', NOW());
 
-INSERT INTO `card_amounts` (`IdCreditCard`, `Balance`, `Currency`)
-VALUES (1, 6000, 'RON'),
-  (2, 6000, 'RON');
+INSERT INTO `card_amounts` (`IdCreditCard`, `Balance`, `Currency`, `AddDate`)
+VALUES (1, 6000, 'RON', NOW()),
+  (2, 6000, 'RON', NOW());
 
 INSERT INTO `stores` (`StoreName`, `StoreId`, `SecretKey`, `AddDate`)
 VALUES ('SampleStore', 'SampleStore_ID19', 'SampleStore_TEST', NOW()),
