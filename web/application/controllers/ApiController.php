@@ -57,6 +57,11 @@ class ApiController extends REST_Controller
         $this->response($apiResponse, $httpCode);
     }
 
+    public function pay_post()
+    {
+
+    }
+
     /**
      * @param int $currentBalance
      * @return array
