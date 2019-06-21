@@ -15,6 +15,9 @@ class RequestValidator
         'token',
     ];
 
+    /**
+     * RequestValidator constructor.
+     */
     public function __construct()
     {
         $this->ci = & get_instance();
@@ -24,10 +27,10 @@ class RequestValidator
 
     /**
      * @param array $requestData
-     * @param $format
-     * @throws Exception
+     * @param array $format
+     * @throws RequestValidatorException
      */
-    public function validateRequestStructure(array $requestData, $format)
+    public function validateRequestStructure(array $requestData, array $format)
     {
         foreach ($format as $key => $value) {
             if (is_numeric($key)) {
@@ -39,7 +42,7 @@ class RequestValidator
             }
 
             if (!isset($requestData[$key])) {
-                throw new Exception("Parameter '$value' is missing");
+                throw new RequestValidatorException("Parameter '$value' is missing");
             }
         }
     }

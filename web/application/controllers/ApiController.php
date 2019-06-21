@@ -13,6 +13,9 @@ class ApiController extends REST_Controller
     const SUCCESS_HTTP_CODE = "200";
     const ERROR_HTTP_CODE = "400";
 
+    /**
+     * ApiController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -24,32 +27,37 @@ class ApiController extends REST_Controller
     {
         $getData = $this->get();
 
+        // Validate if the GET request contains the required parameters
         try {
             $this->requestvalidator->validateRequestStructure($getData, requestvalidator::REQUIRED_GET_BALANCE_REQUEST_KEYS);
-
-            $email = $getData['email'];
-
-            $currentBalance = $this->requestprocessor->processGetBalanceRequest($email);
-
-            $apiResponse = $this->getApiMetaResponseForSuccess();
-
-            $apiResponse['userData']['balance'] = $currentBalance;
-            $httpCode = self::SUCCESS_HTTP_CODE;
-
-        } catch (Exception $e) {
-            $apiResponse = $this->getApiMetaResponseForError($e->getMessage());
+        } catch (RequestValidatorException $e) {
+            $apiResponse = $this->setApiMetaResponseForError($e->getMessage());
             $httpCode = self::ERROR_HTTP_CODE;
+
+            $this->response($apiResponse, $httpCode);
         }
+
+        $email = $getData['email'];
+        // Retrieve balance data from database for a specific user, based on it's email
+        $currentBalance = $this->requestprocessor->processGetBalanceRequest($email);
+
+        // Set meta data + balance in the API response
+        $apiResponse = $this->setBalanceApiResponseForSuccess($currentBalance);
+        $httpCode = self::SUCCESS_HTTP_CODE;
+
         $this->response($apiResponse, $httpCode);
     }
 
     /**
+     * @param int $currentBalance
      * @return array
      */
-    private function getApiMetaResponseForSuccess()
+    private function setBalanceApiResponseForSuccess($currentBalance)
     {
         $apiResponse['meta']['status'] = 'Ok';
         $apiResponse['meta']['message'] = 'Operation successful';
+
+        $apiResponse['userData']['balance'] = $currentBalance;
 
         return $apiResponse;
     }
@@ -58,7 +66,7 @@ class ApiController extends REST_Controller
      * @param string $errorMessage
      * @return array
      */
-    private function getApiMetaResponseForError($errorMessage)
+    private function setApiMetaResponseForError($errorMessage)
     {
         $apiResponse['meta']['status'] = 'Error';
         $apiResponse['meta']['message'] = $errorMessage;
