@@ -4,6 +4,8 @@ if (! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
+require_once 'RequestValidatorException.php';
+
 class RequestValidator
 {
     private $ci;
@@ -35,7 +37,6 @@ class RequestValidator
         $this->ci = & get_instance();
         $this->ci->load->model('RequestValidatorModel');
         $this->ci->load->model('CardDataModel');
-		$this->ci->load->library('RequestValidatorException');
     }
 
     /**
@@ -119,6 +120,28 @@ class RequestValidator
     {
         if ($currency !== $this->ci->CardDataModel->getUserBalanceCurrencyByEmail($email)) {
             throw new RequestValidatorException('Currency not supported!');
+        }
+    }
+
+    /**
+     * @param string $authorizationHeader
+     * @param string $email
+     * @param string $token
+     * @throws RequestValidatorException
+     */
+    public function checkApiAuthentication($authorizationHeader, $email, $token)
+    {
+        if (isset($authorizationHeader)) {
+            $decryptedApiCredentials = base64_decode($authorizationHeader);
+            $requestCredentials = explode(',', $decryptedApiCredentials);
+
+            $authCredentials['StoreId'] = $requestCredentials[0];
+            $authCredentials['SecretKey'] = $requestCredentials[1];
+
+            $this->validateRequestCredentials($email, $authCredentials, $token);
+
+        } else {
+            throw new RequestValidatorException("The 'Authorization' header is missing");
         }
     }
 }
