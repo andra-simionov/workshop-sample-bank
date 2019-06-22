@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "293efd19-5834-4789-8fc0-8bb65823b271",
+		"name": "workshop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "payOrder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "U2FtcGxlU3RvcmVfSUQxOSxTYW1wbGVTdG9yZV9URVNU",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"requestId\":\"33d7f095-ce5e-4ad1-a38f-f9c2b584c3b9\",\"timestamp\":\"2019-06-21 01:28:18\",\"email\":\"horatiu.brinza@gmail.com\",\"token\":\"12341041-342d-4a64-ab40-951d6bd1e4f4\",\"orderData\":{\"reference\":83850,\"amount\":\"12\",\"currency\":\"RON\"}}"
+				},
+				"url": {
+					"raw": "http://192.168.24.20/api/v1/pay",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"24",
+						"20"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pay"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBalance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}
